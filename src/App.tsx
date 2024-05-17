@@ -51,7 +51,6 @@ function App() {
                     onChange={(e) => setInstructions(e.target.value)}
                 />
             </div>
-            ;
             <div>
                 <div>
                     <label htmlFor="subject">Subject property adress</label>
