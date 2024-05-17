@@ -76,6 +76,7 @@ function App() {
                                 <label htmlFor="appraisal-comps">Add Appraisal Comp</label>
                             </div>
                             <GoogleMapsAutocompleteInput
+                                disabled={!subject}
                                 className="w-full border border-gray-500 rounded px-2 py-1"
                                 clearOnPlaceChange
                                 onPlaceChange={(place) => {
@@ -102,6 +103,7 @@ function App() {
                                 <label htmlFor="appraisal-comps">Add ROV Sale</label>
                             </div>
                             <GoogleMapsAutocompleteInput
+                                disabled={!subject}
                                 className="w-full border border-gray-500 rounded px-2 py-1"
                                 clearOnPlaceChange
                                 onPlaceChange={(place) => {
@@ -274,13 +276,14 @@ function BoundsHandler({
 
         const bounds = new window.google.maps.LatLngBounds();
         bounds.extend(subject?.location);
-        [...appraisalComps, ...rovComps].forEach((marker) => {
-            bounds.extend(marker.location);
+        const all = [subject, ...appraisalComps, ...rovComps];
+        all.forEach((prop) => {
+            bounds.extend(prop.location);
         });
 
         map.fitBounds(bounds);
 
-        if (subject && !appraisalComps.length) {
+        if (all.length <= 1) {
             map.setZoom(12);
         }
     }, [appraisalComps, map, rovComps, subject]);
