@@ -1,27 +1,14 @@
 import { APIProvider, AdvancedMarker, Map, Marker, useMap } from '@vis.gl/react-google-maps';
 import { useEffect, useState } from 'react';
+import { CompList } from './components/CompList';
+import { CompListItem } from './components/CompListItem';
 import { GoogleMapsAutocompleteInput } from './components/GoogleMapsAutocompleteInput';
-import { AppraisalComp0Pin } from './svg/AppraisalComp0Pin';
-import { AppraisalComp1Pin } from './svg/AppraisalComp1Pin';
-import { AppraisalComp2Pin } from './svg/AppraisalComp2Pin';
 import { SubjectPin } from './svg/SubjectPin';
 import { ComparableProperty, SubjectProperty } from './types';
+import { getCompPinComponent } from './utils/getCompPinComponent';
 import { makeAddress } from './utils/makeAddress';
 import { makeCoordinates } from './utils/makeCoordinates';
-import { ROVComp0Pin } from './svg/ROVComp0Pin';
-import { ROVComp1Pin } from './svg/ROVComp1Pin';
-import { ROVComp2Pin } from './svg/ROVComp2Pin';
-
-const appraisalCompIndexToComponent = {
-    '0': AppraisalComp0Pin,
-    '1': AppraisalComp1Pin,
-    '2': AppraisalComp2Pin,
-};
-const rovCompIndexToComponent = {
-    '0': ROVComp0Pin,
-    '1': ROVComp1Pin,
-    '2': ROVComp2Pin,
-};
+import { v4 as uuid } from 'uuid';
 
 // TODO: Handle duplicate addresses
 
@@ -101,6 +88,7 @@ function App() {
                                     setAppraisalComps((prev) => [
                                         ...prev,
                                         {
+                                            id: uuid(),
                                             address,
                                             location,
                                             proximity: 0, // TODO: Calculate proximity
@@ -126,6 +114,7 @@ function App() {
                                     setROVComps((prev) => [
                                         ...prev,
                                         {
+                                            id: uuid(),
                                             address,
                                             location,
                                             proximity: 0, // TODO: Calculate proximity
@@ -188,9 +177,7 @@ function App() {
                                                   />
                                               );
 
-                                          const Pin =
-                                              // @ts-expect-error ignore for now
-                                              appraisalCompIndexToComponent[index.toString()];
+                                          const Pin = getCompPinComponent(index, 'appraisal');
                                           return (
                                               <AdvancedMarker
                                                   position={c.location}
@@ -210,9 +197,7 @@ function App() {
                                                       key={JSON.stringify(c)}
                                                   />
                                               );
-                                          const Pin =
-                                              // @ts-expect-error ignore for now
-                                              rovCompIndexToComponent[index.toString()];
+                                          const Pin = getCompPinComponent(index, 'rov');
                                           return (
                                               <AdvancedMarker
                                                   position={c.location}
@@ -236,6 +221,52 @@ function App() {
                                 <p>Enter a subject address to view map</p>
                             </div>
                         )}
+                        <div className="flex gap-8 mt-8">
+                            <div className="flex-1 flex flex-col gap-8">
+                                <h3 className="text-lg">Appraisal Comps</h3>
+                                {appraisalComps.length ? (
+                                    <CompList>
+                                        {appraisalComps.map((comp, index) => (
+                                            <CompListItem
+                                                key={JSON.stringify(comp)}
+                                                index={index}
+                                                comp={comp}
+                                                type="appraisal"
+                                                onDelete={() => {
+                                                    setAppraisalComps((prev) => {
+                                                        return prev.filter((c) => c.id !== comp.id);
+                                                    });
+                                                }}
+                                            />
+                                        ))}
+                                    </CompList>
+                                ) : (
+                                    <p>No appraisal comps selected</p>
+                                )}
+                            </div>
+                            <div className="flex-1 flex flex-col gap-8">
+                                <h3 className="text-lg">ROV Sales</h3>
+                                {rovComps.length ? (
+                                    <CompList>
+                                        {rovComps.map((comp, index) => (
+                                            <CompListItem
+                                                key={JSON.stringify(comp)}
+                                                index={index}
+                                                comp={comp}
+                                                type="rov"
+                                                onDelete={() => {
+                                                    setROVComps((prev) => {
+                                                        return prev.filter((c) => c.id !== comp.id);
+                                                    });
+                                                }}
+                                            />
+                                        ))}
+                                    </CompList>
+                                ) : (
+                                    <p>No ROV comps selected</p>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </APIProvider>
             </div>

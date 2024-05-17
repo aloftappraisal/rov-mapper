@@ -19,6 +19,7 @@ export type SubjectProperty = {
 };
 
 export type ComparableProperty = {
+    id: string;
     address: Address;
     location: Coordinates;
     /** Proximity from the subject property in miles */
