@@ -3,6 +3,7 @@ import { ComparableProperty, SubjectProperty } from './types';
 import { makeCoordinates } from './utils/makeCoordinates';
 import { GoogleMapsAutocompleteInput } from './components/GoogleMapsAutocompleteInput';
 import { useState } from 'react';
+import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 
 // TODO: Handle duplicate addresses
 
@@ -48,7 +49,7 @@ function App() {
                             onPlaceChange={(place) => {
                                 if (!place?.geometry?.location) return;
                                 if (!place?.address_components?.length) return;
-
+                                console.log(place.geometry.viewport);
                                 const address = makeAddress(place.address_components);
                                 const location = makeCoordinates(place.geometry.location);
 
@@ -131,7 +132,28 @@ function App() {
                         </div>
                     )}
                 </div>
-                <div className="bg-red-500 flex-grow w-full lg:w-auto">Map</div>
+                <APIProvider apiKey={'AIzaSyDMft9zkCHh_o2BtOh8-_8tPstDgTSb5b0'}>
+                    <div className="flex-grow w-full lg:w-auto h-[500px]">
+                        {subject ? (
+                            <Map
+                                defaultCenter={subject.location}
+                                defaultZoom={12}
+                                streetViewControl={false}
+                                mapId={'satellite'}
+                                gestureHandling={'greedy'}
+                            >
+                                <Marker position={subject.location} />
+                                {appraisalComps.length
+                                    ? appraisalComps.map((c) => <Marker position={c.location} />)
+                                    : null}
+                            </Map>
+                        ) : (
+                            <div className="bg-gray-300 flex justify-center items-center h-full w-full">
+                                <p>Enter a subject address to view map</p>
+                            </div>
+                        )}
+                    </div>
+                </APIProvider>
             </div>
         </div>
     );
