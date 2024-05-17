@@ -170,19 +170,11 @@ function App() {
                                 {appraisalComps.length
                                     ? appraisalComps.map((c, index) => {
                                           if (index > 2)
-                                              return (
-                                                  <Marker
-                                                      position={c.location}
-                                                      key={JSON.stringify(c)}
-                                                  />
-                                              );
+                                              return <Marker position={c.location} key={c.id} />;
 
                                           const Pin = getCompPinComponent(index, 'appraisal');
                                           return (
-                                              <AdvancedMarker
-                                                  position={c.location}
-                                                  key={JSON.stringify(c)}
-                                              >
+                                              <AdvancedMarker position={c.location} key={c.id}>
                                                   <Pin />
                                               </AdvancedMarker>
                                           );
@@ -191,18 +183,10 @@ function App() {
                                 {rovComps.length
                                     ? rovComps.map((c, index) => {
                                           if (index > 2)
-                                              return (
-                                                  <Marker
-                                                      position={c.location}
-                                                      key={JSON.stringify(c)}
-                                                  />
-                                              );
+                                              return <Marker position={c.location} key={c.id} />;
                                           const Pin = getCompPinComponent(index, 'rov');
                                           return (
-                                              <AdvancedMarker
-                                                  position={c.location}
-                                                  key={JSON.stringify(c)}
-                                              >
+                                              <AdvancedMarker position={c.location} key={c.id}>
                                                   <Pin />
                                               </AdvancedMarker>
                                           );
@@ -228,7 +212,7 @@ function App() {
                                     <CompList>
                                         {appraisalComps.map((comp, index) => (
                                             <CompListItem
-                                                key={JSON.stringify(comp)}
+                                                key={comp.id}
                                                 index={index}
                                                 comp={comp}
                                                 type="appraisal"
@@ -250,7 +234,7 @@ function App() {
                                     <CompList>
                                         {rovComps.map((comp, index) => (
                                             <CompListItem
-                                                key={JSON.stringify(comp)}
+                                                key={comp.id}
                                                 index={index}
                                                 comp={comp}
                                                 type="rov"
