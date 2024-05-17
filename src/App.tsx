@@ -1,9 +1,9 @@
-import { makeAddress } from './utils/makeAddress';
-import { ComparableProperty, SubjectProperty } from './types';
-import { makeCoordinates } from './utils/makeCoordinates';
+import { APIProvider, Map, Marker, useMap } from '@vis.gl/react-google-maps';
+import { useEffect, useState } from 'react';
 import { GoogleMapsAutocompleteInput } from './components/GoogleMapsAutocompleteInput';
-import { useState } from 'react';
-import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
+import { ComparableProperty, SubjectProperty } from './types';
+import { makeAddress } from './utils/makeAddress';
+import { makeCoordinates } from './utils/makeCoordinates';
 
 // TODO: Handle duplicate addresses
 
@@ -20,7 +20,7 @@ function App() {
         <div className="max-w-[1500px] py-4 px-6 mx-auto flex flex-col gap-8 min-h-full">
             <h1 className="text-3xl font-bold text-center">ROV Comparables Tool</h1>
             <div className="flex gap-8 flex-col lg:flex-row flex-1">
-                <div className="w-[500px] flex flex-col gap-4 self-center lg:self-start">
+                <div className="basis-[500px] flex flex-col gap-4 self-center lg:self-start">
                     <div>
                         <button
                             onClick={() => setIsDebugModeOn((x) => !x)}
@@ -49,7 +49,7 @@ function App() {
                             onPlaceChange={(place) => {
                                 if (!place?.geometry?.location) return;
                                 if (!place?.address_components?.length) return;
-                                console.log(place.geometry.viewport);
+
                                 const address = makeAddress(place.address_components);
                                 const location = makeCoordinates(place.geometry.location);
 
@@ -146,6 +146,12 @@ function App() {
                                 {appraisalComps.length
                                     ? appraisalComps.map((c) => <Marker position={c.location} />)
                                     : null}
+                                {(!!appraisalComps.length || !!rovComps.length) && (
+                                    <BoundsHandler
+                                        subject={subject}
+                                        appraisalComps={appraisalComps}
+                                    />
+                                )}
                             </Map>
                         ) : (
                             <div className="bg-gray-300 flex justify-center items-center h-full w-full">
@@ -157,6 +163,34 @@ function App() {
             </div>
         </div>
     );
+}
+
+function BoundsHandler({
+    subject,
+    appraisalComps,
+}: {
+    subject: SubjectProperty;
+    appraisalComps: ComparableProperty[];
+}) {
+    const map = useMap();
+
+    useEffect(() => {
+        if (!map || !subject) return;
+
+        const bounds = new window.google.maps.LatLngBounds();
+        bounds.extend(subject?.location);
+        appraisalComps.forEach((marker) => {
+            bounds.extend(marker.location);
+        });
+
+        map.fitBounds(bounds);
+
+        if (subject && !appraisalComps.length) {
+            map.setZoom(12);
+        }
+    }, [appraisalComps, map, subject]);
+
+    return null;
 }
 
 export default App;
