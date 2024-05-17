@@ -34,6 +34,8 @@ function App() {
     const [appraisalComps, setAppraisalComps] = useState<ComparableProperty[]>([]);
     const [rovComps, setROVComps] = useState<ComparableProperty[]>([]);
 
+    const [comments, setComments] = useState<string>();
+
     return (
         <div className="max-w-[1500px] py-4 px-6 mx-auto flex flex-col gap-8 min-h-full">
             <h1 className="text-3xl font-bold text-center">ROV Comparables Tool</h1>
@@ -133,6 +135,17 @@ function App() {
                             />
                         </div>
                     </div>
+                    <div>
+                        <div>
+                            <label htmlFor="comments">Comments</label>
+                        </div>
+                        <textarea
+                            id="comments"
+                            className="w-full h-56 border border-gray-500 rounded px-2 py-1"
+                            value={comments}
+                            onChange={(e) => setComments(e.target.value)}
+                        />
+                    </div>
                     {isDebugModeOn && (
                         <div className="max-h-96 overflow-auto">
                             <pre>
@@ -142,6 +155,7 @@ function App() {
                                         subject,
                                         appraisalComps,
                                         rovComps,
+                                        comments,
                                     },
                                     null,
                                     2
