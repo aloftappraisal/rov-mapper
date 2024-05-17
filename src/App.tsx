@@ -1,9 +1,27 @@
-import { APIProvider, Map, Marker, useMap } from '@vis.gl/react-google-maps';
+import { APIProvider, AdvancedMarker, Map, Marker, useMap } from '@vis.gl/react-google-maps';
 import { useEffect, useState } from 'react';
 import { GoogleMapsAutocompleteInput } from './components/GoogleMapsAutocompleteInput';
+import { AppraisalComp0Pin } from './svg/AppraisalComp0Pin';
+import { AppraisalComp1Pin } from './svg/AppraisalComp1Pin';
+import { AppraisalComp2Pin } from './svg/AppraisalComp2Pin';
+import { SubjectPin } from './svg/SubjectPin';
 import { ComparableProperty, SubjectProperty } from './types';
 import { makeAddress } from './utils/makeAddress';
 import { makeCoordinates } from './utils/makeCoordinates';
+import { ROVComp0Pin } from './svg/ROVComp0Pin';
+import { ROVComp1Pin } from './svg/ROVComp1Pin';
+import { ROVComp2Pin } from './svg/ROVComp2Pin';
+
+const appraisalCompIndexToComponent = {
+    '0': AppraisalComp0Pin,
+    '1': AppraisalComp1Pin,
+    '2': AppraisalComp2Pin,
+};
+const rovCompIndexToComponent = {
+    '0': ROVComp0Pin,
+    '1': ROVComp1Pin,
+    '2': ROVComp2Pin,
+};
 
 // TODO: Handle duplicate addresses
 
@@ -20,7 +38,7 @@ function App() {
         <div className="max-w-[1500px] py-4 px-6 mx-auto flex flex-col gap-8 min-h-full">
             <h1 className="text-3xl font-bold text-center">ROV Comparables Tool</h1>
             <div className="flex gap-8 flex-col lg:flex-row flex-1">
-                <div className="basis-[500px] flex flex-col gap-4 self-center lg:self-start">
+                <div className="lg:basis-[500px] flex flex-col gap-4 self-center lg:self-start">
                     <div>
                         <button
                             onClick={() => setIsDebugModeOn((x) => !x)}
@@ -91,7 +109,7 @@ function App() {
                         </div>
                         <div className="flex-1">
                             <div>
-                                <label htmlFor="appraisal-comps">Add an ROV Sale</label>
+                                <label htmlFor="appraisal-comps">Add ROV Sale</label>
                             </div>
                             <GoogleMapsAutocompleteInput
                                 className="w-full border border-gray-500 rounded px-2 py-1"
@@ -139,17 +157,63 @@ function App() {
                                 defaultCenter={subject.location}
                                 defaultZoom={12}
                                 streetViewControl={false}
-                                mapId={'satellite'}
+                                mapTypeId={'satellite'}
+                                mapId={'rov-comps-map'}
                                 gestureHandling={'greedy'}
                             >
-                                <Marker position={subject.location} />
+                                <AdvancedMarker position={subject.location}>
+                                    <SubjectPin />
+                                </AdvancedMarker>
                                 {appraisalComps.length
-                                    ? appraisalComps.map((c) => <Marker position={c.location} />)
+                                    ? appraisalComps.map((c, index) => {
+                                          if (index > 2)
+                                              return (
+                                                  <Marker
+                                                      position={c.location}
+                                                      key={JSON.stringify(c)}
+                                                  />
+                                              );
+
+                                          const Pin =
+                                              // @ts-expect-error ignore for now
+                                              appraisalCompIndexToComponent[index.toString()];
+                                          return (
+                                              <AdvancedMarker
+                                                  position={c.location}
+                                                  key={JSON.stringify(c)}
+                                              >
+                                                  <Pin />
+                                              </AdvancedMarker>
+                                          );
+                                      })
+                                    : null}
+                                {rovComps.length
+                                    ? rovComps.map((c, index) => {
+                                          if (index > 2)
+                                              return (
+                                                  <Marker
+                                                      position={c.location}
+                                                      key={JSON.stringify(c)}
+                                                  />
+                                              );
+                                          const Pin =
+                                              // @ts-expect-error ignore for now
+                                              rovCompIndexToComponent[index.toString()];
+                                          return (
+                                              <AdvancedMarker
+                                                  position={c.location}
+                                                  key={JSON.stringify(c)}
+                                              >
+                                                  <Pin />
+                                              </AdvancedMarker>
+                                          );
+                                      })
                                     : null}
                                 {(!!appraisalComps.length || !!rovComps.length) && (
                                     <BoundsHandler
                                         subject={subject}
                                         appraisalComps={appraisalComps}
+                                        rovComps={rovComps}
                                     />
                                 )}
                             </Map>
@@ -168,9 +232,11 @@ function App() {
 function BoundsHandler({
     subject,
     appraisalComps,
+    rovComps,
 }: {
     subject: SubjectProperty;
     appraisalComps: ComparableProperty[];
+    rovComps: ComparableProperty[];
 }) {
     const map = useMap();
 
@@ -179,7 +245,7 @@ function BoundsHandler({
 
         const bounds = new window.google.maps.LatLngBounds();
         bounds.extend(subject?.location);
-        appraisalComps.forEach((marker) => {
+        [...appraisalComps, ...rovComps].forEach((marker) => {
             bounds.extend(marker.location);
         });
 
@@ -188,7 +254,7 @@ function BoundsHandler({
         if (subject && !appraisalComps.length) {
             map.setZoom(12);
         }
-    }, [appraisalComps, map, subject]);
+    }, [appraisalComps, map, rovComps, subject]);
 
     return null;
 }
