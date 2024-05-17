@@ -147,7 +147,7 @@ function App() {
                         />
                     </div>
                     {isDebugModeOn && (
-                        <div className="max-h-96 overflow-auto">
+                        <div className="max-h-96 overflow-auto bg-gray-100 p-2">
                             <pre>
                                 {JSON.stringify(
                                     {
