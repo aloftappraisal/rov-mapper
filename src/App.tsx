@@ -33,7 +33,7 @@ function App() {
                 </div>
                 <textarea
                     id="instructions"
-                    className="w-full h-12 border border-gray-500"
+                    className="w-full h-12 border border-gray-500 rounded px-2 py-1"
                     value={instructions}
                     onChange={(e) => setInstructions(e.target.value)}
                 />
@@ -43,7 +43,7 @@ function App() {
                     <label htmlFor="subject">Subject property adress</label>
                 </div>
                 <GoogleMapsAutocompleteInput
-                    className="w-full border border-gray-500"
+                    className="w-full border border-gray-500 rounded px-2 py-1"
                     onPlaceChange={(place) => {
                         if (!place?.geometry?.location) return;
                         if (!place?.address_components?.length) return;
@@ -61,13 +61,13 @@ function App() {
                     }}
                 />
             </div>
-            <div className="flex">
+            <div className="flex gap-4">
                 <div className="flex-1">
                     <div>
                         <label htmlFor="appraisal-comps">Add Appraisal Comp</label>
                     </div>
                     <GoogleMapsAutocompleteInput
-                        className="w-full border border-gray-500"
+                        className="w-full border border-gray-500 rounded px-2 py-1"
                         clearOnPlaceChange
                         onPlaceChange={(place) => {
                             if (!place?.geometry?.location) return;
@@ -99,7 +99,7 @@ function App() {
                         <label htmlFor="appraisal-comps">Add an ROV Sale</label>
                     </div>
                     <GoogleMapsAutocompleteInput
-                        className="w-full border border-gray-500"
+                        className="w-full border border-gray-500 rounded px-2 py-1"
                         clearOnPlaceChange
                         onPlaceChange={(place) => {
                             if (!place?.geometry?.location) return;
