@@ -20,11 +20,11 @@ function App() {
     const [comments, setComments] = useState<string>();
 
     return (
-        <div className="bg-blue-300 max-w-[1500px] py-4 px-6 mx-auto min-h-full flex flex-col">
-            <header className="mb-8 bg-red-300">
+        <div className="max-w-[1500px] py-4 px-6 mx-auto min-h-full flex flex-col">
+            <header className="mb-8">
                 <h1 className="text-3xl font-bold text-center">ROV Comparables Tool</h1>
             </header>
-            <main className="bg-green-300 flex gap-8 flex-col lg:flex-row flex-1">
+            <main className="flex gap-8 flex-col lg:flex-row flex-1">
                 <div className="flex flex-col gap-4 self-center lg:self-start lg:basis-[500px]">
                     <FormGroup for="instructions" label="Instructions">
                         <TextArea
