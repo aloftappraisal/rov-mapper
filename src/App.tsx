@@ -15,6 +15,8 @@ import { getDistance } from './utils/getDistance';
 
 // TODO: Handle duplicate addresses
 
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
 function App() {
     const [isDebugModeOn, setIsDebugModeOn] = useState(false);
 
@@ -91,7 +93,6 @@ function App() {
                                             id: uuid(),
                                             address,
                                             location,
-                                            proximity: 0, // TODO: Calculate proximity
                                         },
                                     ]);
                                 }}
@@ -115,7 +116,6 @@ function App() {
                                             id: uuid(),
                                             address,
                                             location,
-                                            proximity: 0, // TODO: Calculate proximity
                                         },
                                     ]);
                                 }}
@@ -148,7 +148,7 @@ function App() {
                         </div>
                     )}
                 </div>
-                <APIProvider apiKey={'AIzaSyDMft9zkCHh_o2BtOh8-_8tPstDgTSb5b0'}>
+                <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
                     <div className="flex-grow w-full lg:w-auto h-[500px]">
                         <Map
                             defaultZoom={4}
