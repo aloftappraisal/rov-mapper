@@ -9,6 +9,7 @@ import { getCompPinComponent } from './utils/getCompPinComponent';
 import { makeAddress } from './utils/makeAddress';
 import { makeCoordinates } from './utils/makeCoordinates';
 import { v4 as uuid } from 'uuid';
+import { FormGroup } from './components/FormGroup';
 
 // TODO: Handle duplicate addresses
 
@@ -36,22 +37,17 @@ function App() {
                             Turn {isDebugModeOn ? 'off' : 'on'} debug mode
                         </button>
                     </div>
-                    <div>
-                        <div>
-                            <label htmlFor="instructions">Instructions</label>
-                        </div>
+                    <FormGroup for="instructions" label="Instructions">
                         <textarea
                             id="instructions"
                             className="w-full h-12 border border-gray-500 rounded px-2 py-1"
                             value={instructions}
                             onChange={(e) => setInstructions(e.target.value)}
                         />
-                    </div>
-                    <div>
-                        <div>
-                            <label htmlFor="subject">Subject property adress</label>
-                        </div>
+                    </FormGroup>
+                    <FormGroup for="subject" label="Subject property address">
                         <GoogleMapsAutocompleteInput
+                            id="subject"
                             className="w-full border border-gray-500 rounded px-2 py-1"
                             onPlaceChange={(place) => {
                                 if (!place?.geometry?.location) return;
@@ -69,13 +65,15 @@ function App() {
                                 if (p === null) setSubject(null);
                             }}
                         />
-                    </div>
+                    </FormGroup>
                     <div className="flex gap-4">
-                        <div className="flex-1">
-                            <div>
-                                <label htmlFor="appraisal-comps">Add Appraisal Comp</label>
-                            </div>
+                        <FormGroup
+                            for="appraisal-comp"
+                            label="Add Appraisal Comp"
+                            className="flex-1"
+                        >
                             <GoogleMapsAutocompleteInput
+                                id="appraisal-comp"
                                 disabled={!subject}
                                 className="w-full border border-gray-500 rounded px-2 py-1"
                                 clearOnPlaceChange
@@ -97,12 +95,10 @@ function App() {
                                     ]);
                                 }}
                             />
-                        </div>
-                        <div className="flex-1">
-                            <div>
-                                <label htmlFor="appraisal-comps">Add ROV Sale</label>
-                            </div>
+                        </FormGroup>
+                        <FormGroup for="rov-sale" label="Add ROV Sale" className="flex-1">
                             <GoogleMapsAutocompleteInput
+                                id="rov-sale"
                                 disabled={!subject}
                                 className="w-full border border-gray-500 rounded px-2 py-1"
                                 clearOnPlaceChange
@@ -124,19 +120,16 @@ function App() {
                                     ]);
                                 }}
                             />
-                        </div>
+                        </FormGroup>
                     </div>
-                    <div>
-                        <div>
-                            <label htmlFor="comments">Comments</label>
-                        </div>
+                    <FormGroup for="comments" label="Comments">
                         <textarea
                             id="comments"
                             className="w-full h-56 border border-gray-500 rounded px-2 py-1"
                             value={comments}
                             onChange={(e) => setComments(e.target.value)}
                         />
-                    </div>
+                    </FormGroup>
                     {isDebugModeOn && (
                         <div className="max-h-96 overflow-auto bg-gray-100 p-2">
                             <pre>
