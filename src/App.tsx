@@ -20,10 +20,12 @@ function App() {
     const [comments, setComments] = useState<string>();
 
     return (
-        <div className="max-w-[1500px] py-4 px-6 mx-auto flex flex-col gap-8 min-h-full">
-            <h1 className="text-3xl font-bold text-center">ROV Comparables Tool</h1>
-            <div className="flex gap-8 flex-col lg:flex-row flex-1">
-                <div className="lg:basis-[500px] flex flex-col gap-4 self-center lg:self-start">
+        <div className="bg-blue-300 max-w-[1500px] py-4 px-6 mx-auto min-h-full flex flex-col">
+            <header className="mb-8 bg-red-300">
+                <h1 className="text-3xl font-bold text-center">ROV Comparables Tool</h1>
+            </header>
+            <main className="bg-green-300 flex gap-8 flex-col lg:flex-row flex-1">
+                <div className="flex flex-col gap-4 self-center lg:self-start lg:basis-[500px]">
                     <FormGroup for="instructions" label="Instructions">
                         <TextArea
                             id="instructions"
@@ -80,13 +82,15 @@ function App() {
                         />
                     </FormGroup>
                 </div>
-                <div className="flex-grow w-full lg:w-auto h-[500px]">
-                    <Map
-                        apiKey={GOOGLE_MAPS_API_KEY}
-                        subject={subject}
-                        appraisalComps={appraisalComps}
-                        rovComps={rovComps}
-                    />
+                <div className="flex-grow w-full lg:w-auto">
+                    <div className="h-[500px]">
+                        <Map
+                            apiKey={GOOGLE_MAPS_API_KEY}
+                            subject={subject}
+                            appraisalComps={appraisalComps}
+                            rovComps={rovComps}
+                        />
+                    </div>
                     <div className="flex gap-8 mt-8">
                         <div className="flex-1 flex flex-col gap-4">
                             <CompListHeader type="appraisal" numComps={appraisalComps.length} />
@@ -108,7 +112,7 @@ function App() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
     );
 }
