@@ -168,7 +168,7 @@ function App() {
                             )}
                             {appraisalComps.length
                                 ? appraisalComps.map((c, index) => {
-                                      if (index > 2)
+                                      if (index > 11)
                                           return <Marker position={c.location} key={c.id} />;
 
                                       const Pin = getCompPinComponent(index, 'appraisal');
@@ -181,7 +181,7 @@ function App() {
                                 : null}
                             {rovComps.length
                                 ? rovComps.map((c, index) => {
-                                      if (index > 2)
+                                      if (index > 11)
                                           return <Marker position={c.location} key={c.id} />;
                                       const Pin = getCompPinComponent(index, 'rov');
                                       return (
@@ -199,7 +199,10 @@ function App() {
                         </Map>
                         <div className="flex gap-8 mt-8">
                             <div className="flex-1 flex flex-col gap-4">
-                                <h3 className="text-lg font-bold">Appraisal Comps</h3>
+                                <h3 className="text-lg font-bold">
+                                    Appraisal Comps{' '}
+                                    {appraisalComps.length ? `(${appraisalComps.length})` : null}
+                                </h3>
                                 {appraisalComps.length ? (
                                     <CompList>
                                         {appraisalComps.map((comp, index) => (
@@ -230,7 +233,9 @@ function App() {
                                 )}
                             </div>
                             <div className="flex-1 flex flex-col gap-4">
-                                <h3 className="text-lg font-bold">ROV Sales</h3>
+                                <h3 className="text-lg font-bold">
+                                    ROV Sales {rovComps.length ? `(${rovComps.length})` : null}
+                                </h3>
                                 {rovComps.length ? (
                                     <CompList>
                                         {rovComps.map((comp, index) => (
