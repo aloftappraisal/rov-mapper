@@ -10,6 +10,11 @@ export default {
             },
             colors: {
                 'text-primary': '#072138',
+                'surface-1': '#FFF',
+                'stroke-default': '#CDD3D7',
+                'hover-2': '#9CAFFF',
+                'selected-2': '#3455DB',
+                'text-disabled': '#9CA6AF',
             },
         },
     },

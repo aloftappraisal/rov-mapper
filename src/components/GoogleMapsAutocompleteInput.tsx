@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Input } from './Input';
 
 type Props = {
     onPlaceChange: (p: google.maps.places.PlaceResult) => void;
@@ -42,7 +43,7 @@ export function GoogleMapsAutocompleteInput({
     }, [clearOnPlaceChange, onPlaceChange]);
 
     return (
-        <input
+        <Input
             ref={inputRef}
             id="autocompleteInput"
             type="text"

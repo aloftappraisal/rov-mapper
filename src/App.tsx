@@ -10,6 +10,7 @@ import { makeAddress } from './utils/makeAddress';
 import { makeCoordinates } from './utils/makeCoordinates';
 import { v4 as uuid } from 'uuid';
 import { FormGroup } from './components/FormGroup';
+import { TextArea } from './components/TextArea';
 
 // TODO: Handle duplicate addresses
 
@@ -38,9 +39,9 @@ function App() {
                         </button>
                     </div>
                     <FormGroup for="instructions" label="Instructions">
-                        <textarea
+                        <TextArea
                             id="instructions"
-                            className="w-full h-12 border border-gray-500 rounded px-2 py-1"
+                            className="h-16"
                             value={instructions}
                             onChange={(e) => setInstructions(e.target.value)}
                         />
@@ -74,7 +75,6 @@ function App() {
                         >
                             <GoogleMapsAutocompleteInput
                                 id="appraisal-comp"
-                                disabled={!subject}
                                 className="w-full border border-gray-500 rounded px-2 py-1"
                                 clearOnPlaceChange
                                 onPlaceChange={(place) => {
@@ -99,7 +99,6 @@ function App() {
                         <FormGroup for="rov-sale" label="Add ROV Sale" className="flex-1">
                             <GoogleMapsAutocompleteInput
                                 id="rov-sale"
-                                disabled={!subject}
                                 className="w-full border border-gray-500 rounded px-2 py-1"
                                 clearOnPlaceChange
                                 onPlaceChange={(place) => {
@@ -123,9 +122,9 @@ function App() {
                         </FormGroup>
                     </div>
                     <FormGroup for="comments" label="Comments">
-                        <textarea
+                        <TextArea
                             id="comments"
-                            className="w-full h-56 border border-gray-500 rounded px-2 py-1"
+                            className="h-56"
                             value={comments}
                             onChange={(e) => setComments(e.target.value)}
                         />
