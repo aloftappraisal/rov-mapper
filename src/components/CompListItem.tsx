@@ -1,3 +1,4 @@
+import { CloseLine } from '../svg/CloseLine';
 import { ComparableProperty } from '../types';
 import { formatAddress } from '../utils/formatAddress';
 import { getCompPinComponent } from '../utils/getCompPinComponent';
@@ -23,9 +24,12 @@ export function CompListItem({ index, comp, type, onDelete }: Props) {
                 <div className="flex-grow flex">
                     <span>{formatAddress(comp.address)}</span>
                 </div>
-                <span>
-                    <button className="border border-gray-500 rounded px-2" onClick={onDelete}>
-                        x
+                <span className="shrink-0">
+                    <button
+                        className="p-1  text-button-default border border-button-default rounded bg-surface-1"
+                        onClick={onDelete}
+                    >
+                        <CloseLine />
                     </button>
                 </span>
             </div>

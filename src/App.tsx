@@ -195,7 +195,7 @@ function App() {
                                 )}
                             </Map>
                         ) : (
-                            <div className="bg-gray-300 flex justify-center items-center h-full w-full">
+                            <div className="bg-surface-readonly flex justify-center items-center h-full w-full">
                                 <p>Enter a subject address to view map</p>
                             </div>
                         )}
