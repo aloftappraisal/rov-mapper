@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { Address, Coordinates, Property } from '../types';
-
-type CompType = 'appraisal' | 'rov';
+import { Address, CompType, Coordinates, Property } from '../types';
 
 type UseCompsReturn = {
     appraisalComps: Property[];

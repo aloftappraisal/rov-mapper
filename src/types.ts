@@ -18,3 +18,5 @@ export type Property = {
     address: Address;
     location: Coordinates;
 };
+
+export type CompType = 'appraisal' | 'rov';

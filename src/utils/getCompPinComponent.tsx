@@ -15,8 +15,10 @@ import { ROVComp1Pin } from '../svg/ROVComp1Pin';
 import { ROVComp2Pin } from '../svg/ROVComp2Pin';
 import { ROVComp3Pin } from '../svg/ROVComp3Pin';
 import { ROVComp4Pin } from '../svg/ROVComp4Pin';
+import { CompType } from '../types';
+import { getMaxComps } from './getMaxComps';
 
-const appraisalCompIndexToComponent = {
+const appraisalCompIndexToComponent: Record<string, () => JSX.Element> = {
     '0': AppraisalComp0Pin,
     '1': AppraisalComp1Pin,
     '2': AppraisalComp2Pin,
@@ -30,7 +32,8 @@ const appraisalCompIndexToComponent = {
     '10': AppraisalComp10Pin,
     '11': AppraisalComp11Pin,
 };
-const rovCompIndexToComponent = {
+
+const rovCompIndexToComponent: Record<string, () => JSX.Element> = {
     '0': ROVComp0Pin,
     '1': ROVComp1Pin,
     '2': ROVComp2Pin,
@@ -38,10 +41,12 @@ const rovCompIndexToComponent = {
     '4': ROVComp4Pin,
 };
 
-export function getCompPinComponent(index: number, type: 'appraisal' | 'rov'): () => JSX.Element {
-    if (index > 11) {
-        return () => <span>not supported</span>;
+export function getCompPinComponent(type: CompType, index: number): () => JSX.Element {
+    const maxComps = getMaxComps(type);
+    if (index >= maxComps) {
+        console.warn(`Expected at most ${maxComps} comps but got comp with index ${index}`);
+        return () => <span>{(index + 1).toLocaleString()}</span>;
     }
     const map = type === 'appraisal' ? appraisalCompIndexToComponent : rovCompIndexToComponent;
-    return map[(index + '') as '0' | '1' | '2'];
+    return map[index.toString()];
 }
