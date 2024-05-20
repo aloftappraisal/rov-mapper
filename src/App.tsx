@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { CompList } from './components/CompList';
-import { CompListItem } from './components/CompListItem';
+import { CompListHeader } from './components/CompListHeader';
 import { FormGroup } from './components/FormGroup';
 import { GoogleMapsAutocompleteInput } from './components/GoogleMapsAutocompleteInput';
 import { Map } from './components/Map';
 import { TextArea } from './components/TextArea';
 import { useComps } from './hooks/useComps';
 import { Property } from './types';
-import { getDistance } from './utils/getDistance';
 
 // TODO: Handle duplicate addresses
 
@@ -17,9 +16,7 @@ const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 function App() {
     const [instructions, setInstructions] = useState<string>();
     const [subject, setSubject] = useState<Property | null>(null);
-
     const { appraisalComps, rovComps, addComp, removeComp } = useComps();
-
     const [comments, setComments] = useState<string>();
 
     return (
@@ -92,67 +89,22 @@ function App() {
                     />
                     <div className="flex gap-8 mt-8">
                         <div className="flex-1 flex flex-col gap-4">
-                            <h3 className="text-lg font-bold">
-                                Appraisal Comps{' '}
-                                {appraisalComps.length ? `(${appraisalComps.length})` : null}
-                            </h3>
-                            {appraisalComps.length ? (
-                                <CompList>
-                                    {appraisalComps.map((comp, index) => (
-                                        <CompListItem
-                                            key={comp.id}
-                                            index={index}
-                                            comp={{
-                                                ...comp,
-                                                distance:
-                                                    subject !== null
-                                                        ? getDistance(
-                                                              subject.location,
-                                                              comp.location
-                                                          )
-                                                        : null,
-                                            }}
-                                            type="appraisal"
-                                            onDelete={() => {
-                                                removeComp('appraisal', comp.id);
-                                            }}
-                                        />
-                                    ))}
-                                </CompList>
-                            ) : (
-                                <p>No appraisal comps added</p>
-                            )}
+                            <CompListHeader type="appraisal" numComps={appraisalComps.length} />
+                            <CompList
+                                type="appraisal"
+                                comps={appraisalComps}
+                                subject={subject}
+                                removeComp={removeComp}
+                            />
                         </div>
                         <div className="flex-1 flex flex-col gap-4">
-                            <h3 className="text-lg font-bold">
-                                ROV Sales {rovComps.length ? `(${rovComps.length})` : null}
-                            </h3>
-                            {rovComps.length ? (
-                                <CompList>
-                                    {rovComps.map((comp, index) => (
-                                        <CompListItem
-                                            key={comp.id}
-                                            index={index}
-                                            comp={{
-                                                ...comp,
-                                                distance:
-                                                    subject !== null
-                                                        ? getDistance(
-                                                              subject.location,
-                                                              comp.location
-                                                          )
-                                                        : null,
-                                            }}
-                                            type="rov"
-                                            onDelete={() => {
-                                                removeComp('rov', comp.id);
-                                            }}
-                                        />
-                                    ))}
-                                </CompList>
-                            ) : (
-                                <p>No ROV comps added</p>
-                            )}
+                            <CompListHeader type="rov" numComps={rovComps.length} />
+                            <CompList
+                                type="rov"
+                                comps={rovComps}
+                                subject={subject}
+                                removeComp={removeComp}
+                            />
                         </div>
                     </div>
                 </div>
