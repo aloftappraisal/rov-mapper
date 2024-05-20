@@ -219,7 +219,7 @@ function App() {
                                         ))}
                                     </CompList>
                                 ) : (
-                                    <p>No appraisal comps selected</p>
+                                    <p>No appraisal comps added</p>
                                 )}
                             </div>
                             <div className="flex-1 flex flex-col gap-4">
@@ -241,7 +241,7 @@ function App() {
                                         ))}
                                     </CompList>
                                 ) : (
-                                    <p>No ROV comps selected</p>
+                                    <p>No ROV comps added</p>
                                 )}
                             </div>
                         </div>
