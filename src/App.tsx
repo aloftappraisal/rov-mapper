@@ -1,14 +1,15 @@
 import { APIProvider, AdvancedMarker, Map, Marker, useMap } from '@vis.gl/react-google-maps';
 import { useEffect, useState } from 'react';
+import { v4 as uuid } from 'uuid';
 import { CompList } from './components/CompList';
 import { CompListItem } from './components/CompListItem';
+import { FormGroup } from './components/FormGroup';
 import { GoogleMapsAutocompleteInput } from './components/GoogleMapsAutocompleteInput';
+import { TextArea } from './components/TextArea';
+import { useComps } from './hooks/useComps';
 import { SubjectPin } from './svg/SubjectPin';
 import { Property } from './types';
 import { getCompPinComponent } from './utils/getCompPinComponent';
-import { v4 as uuid } from 'uuid';
-import { FormGroup } from './components/FormGroup';
-import { TextArea } from './components/TextArea';
 import { getDistance } from './utils/getDistance';
 
 // TODO: Handle duplicate addresses
@@ -19,8 +20,7 @@ function App() {
     const [instructions, setInstructions] = useState<string>();
     const [subject, setSubject] = useState<Property | null>(null);
 
-    const [appraisalComps, setAppraisalComps] = useState<Property[]>([]);
-    const [rovComps, setROVComps] = useState<Property[]>([]);
+    const { appraisalComps, rovComps, addComp, removeComp } = useComps();
 
     const [comments, setComments] = useState<string>();
 
@@ -40,7 +40,6 @@ function App() {
                     <FormGroup for="subject" label="Subject property address">
                         <GoogleMapsAutocompleteInput
                             id="subject"
-                            className="w-full border border-gray-500 rounded px-2 py-1"
                             onPlaceChange={({ address, location }) => {
                                 setSubject({
                                     id: uuid(),
@@ -61,34 +60,18 @@ function App() {
                         >
                             <GoogleMapsAutocompleteInput
                                 id="appraisal-comp"
-                                className="w-full border border-gray-500 rounded px-2 py-1"
                                 clearOnPlaceChange
                                 onPlaceChange={({ address, location }) => {
-                                    setAppraisalComps((prev) => [
-                                        ...prev,
-                                        {
-                                            id: uuid(),
-                                            address,
-                                            location,
-                                        },
-                                    ]);
+                                    addComp('appraisal', { address, location });
                                 }}
                             />
                         </FormGroup>
                         <FormGroup for="rov-sale" label="Add ROV Sale" className="flex-1">
                             <GoogleMapsAutocompleteInput
                                 id="rov-sale"
-                                className="w-full border border-gray-500 rounded px-2 py-1"
                                 clearOnPlaceChange
                                 onPlaceChange={({ address, location }) => {
-                                    setROVComps((prev) => [
-                                        ...prev,
-                                        {
-                                            id: uuid(),
-                                            address,
-                                            location,
-                                        },
-                                    ]);
+                                    addComp('rov', { address, location });
                                 }}
                             />
                         </FormGroup>
@@ -175,9 +158,7 @@ function App() {
                                                 }}
                                                 type="appraisal"
                                                 onDelete={() => {
-                                                    setAppraisalComps((prev) => {
-                                                        return prev.filter((c) => c.id !== comp.id);
-                                                    });
+                                                    removeComp('appraisal', comp.id);
                                                 }}
                                             />
                                         ))}
@@ -208,9 +189,7 @@ function App() {
                                                 }}
                                                 type="rov"
                                                 onDelete={() => {
-                                                    setROVComps((prev) => {
-                                                        return prev.filter((c) => c.id !== comp.id);
-                                                    });
+                                                    removeComp('rov', comp.id);
                                                 }}
                                             />
                                         ))}
