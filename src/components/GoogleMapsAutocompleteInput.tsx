@@ -4,15 +4,16 @@ import { Address, Coordinates } from '../types';
 import { makeAddress } from '../utils/makeAddress';
 import { makeCoordinates } from '../utils/makeCoordinates';
 
-type Props = {
+type Props = Omit<React.HTMLProps<HTMLInputElement>, 'onBlur'> & {
     onPlaceChange: (params: { address: Address; location: Coordinates }) => void;
     clearOnPlaceChange?: boolean;
     onBlur?: (p: google.maps.places.PlaceResult | null) => void;
-} & Omit<React.HTMLProps<HTMLInputElement>, 'onBlur'>;
+};
 
 export function GoogleMapsAutocompleteInput({
     onPlaceChange,
     clearOnPlaceChange = false,
+    onBlur,
     ...rest
 }: Props) {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -60,13 +61,13 @@ export function GoogleMapsAutocompleteInput({
             placeholder="Enter a location"
             {...rest}
             onBlur={(event) => {
-                if (!autocompleteRef.current) return;
+                if (!autocompleteRef.current || !onBlur) return;
                 if (!event.target.value) {
                     autocompleteRef.current?.set('place', null);
                     event.target.value = '';
-                    rest.onBlur?.(null);
+                    onBlur?.(null);
                 } else {
-                    rest.onBlur?.(autocompleteRef.current.getPlace());
+                    onBlur?.(autocompleteRef.current.getPlace());
                 }
             }}
         />
