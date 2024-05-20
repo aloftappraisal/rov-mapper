@@ -8,6 +8,9 @@ export default {
             fontFamily: {
                 sans: ['Lato', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'text-primary': '#072138',
+            },
         },
     },
     plugins: [],
