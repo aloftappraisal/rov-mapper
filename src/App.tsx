@@ -200,8 +200,8 @@ function App() {
                             </div>
                         )}
                         <div className="flex gap-8 mt-8">
-                            <div className="flex-1 flex flex-col gap-8">
-                                <h3 className="text-lg">Appraisal Comps</h3>
+                            <div className="flex-1 flex flex-col gap-4">
+                                <h3 className="text-lg font-bold">Appraisal Comps</h3>
                                 {appraisalComps.length ? (
                                     <CompList>
                                         {appraisalComps.map((comp, index) => (
@@ -222,8 +222,8 @@ function App() {
                                     <p>No appraisal comps selected</p>
                                 )}
                             </div>
-                            <div className="flex-1 flex flex-col gap-8">
-                                <h3 className="text-lg">ROV Sales</h3>
+                            <div className="flex-1 flex flex-col gap-4">
+                                <h3 className="text-lg font-bold">ROV Sales</h3>
                                 {rovComps.length ? (
                                     <CompList>
                                         {rovComps.map((comp, index) => (

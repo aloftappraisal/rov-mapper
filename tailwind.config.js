@@ -11,6 +11,7 @@ export default {
             colors: {
                 'text-primary': '#072138',
                 'surface-1': '#FFF',
+                'surface-2': '#F7F7F7',
                 'stroke-default': '#CDD3D7',
                 'hover-2': '#9CAFFF',
                 'selected-2': '#3455DB',

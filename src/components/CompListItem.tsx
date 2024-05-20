@@ -13,9 +13,11 @@ export function CompListItem({ index, comp, type, onDelete }: Props) {
     const Pin = getCompPinComponent(index, type);
 
     return (
-        <li>
+        <li className="bg-surface-1 p-3 rounded shadow">
             <div className="flex gap-2">
-                <span>
+                <span
+                    className="mt-[2px]" // visual baseline alignment
+                >
                     <Pin />
                 </span>
                 <div className="flex-grow flex">
