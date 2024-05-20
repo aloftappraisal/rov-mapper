@@ -4,7 +4,7 @@ import { CompList } from './components/CompList';
 import { CompListItem } from './components/CompListItem';
 import { GoogleMapsAutocompleteInput } from './components/GoogleMapsAutocompleteInput';
 import { SubjectPin } from './svg/SubjectPin';
-import { ComparableProperty, SubjectProperty } from './types';
+import { Property } from './types';
 import { getCompPinComponent } from './utils/getCompPinComponent';
 import { v4 as uuid } from 'uuid';
 import { FormGroup } from './components/FormGroup';
@@ -17,10 +17,10 @@ const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 function App() {
     const [instructions, setInstructions] = useState<string>();
-    const [subject, setSubject] = useState<SubjectProperty | null>(null);
+    const [subject, setSubject] = useState<Property | null>(null);
 
-    const [appraisalComps, setAppraisalComps] = useState<ComparableProperty[]>([]);
-    const [rovComps, setROVComps] = useState<ComparableProperty[]>([]);
+    const [appraisalComps, setAppraisalComps] = useState<Property[]>([]);
+    const [rovComps, setROVComps] = useState<Property[]>([]);
 
     const [comments, setComments] = useState<string>();
 
@@ -43,6 +43,7 @@ function App() {
                             className="w-full border border-gray-500 rounded px-2 py-1"
                             onPlaceChange={({ address, location }) => {
                                 setSubject({
+                                    id: uuid(),
                                     address,
                                     location,
                                 });
@@ -231,9 +232,9 @@ function BoundsHandler({
     appraisalComps,
     rovComps,
 }: {
-    subject: SubjectProperty | null;
-    appraisalComps: ComparableProperty[];
-    rovComps: ComparableProperty[];
+    subject: Property | null;
+    appraisalComps: Property[];
+    rovComps: Property[];
 }) {
     const map = useMap();
 

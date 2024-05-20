@@ -13,12 +13,7 @@ export type Coordinates = {
     lng: number;
 };
 
-export type SubjectProperty = {
-    address: Address;
-    location: Coordinates;
-};
-
-export type ComparableProperty = {
+export type Property = {
     id: string;
     address: Address;
     location: Coordinates;
