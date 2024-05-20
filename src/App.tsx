@@ -149,56 +149,53 @@ function App() {
                 </div>
                 <APIProvider apiKey={'AIzaSyDMft9zkCHh_o2BtOh8-_8tPstDgTSb5b0'}>
                     <div className="flex-grow w-full lg:w-auto h-[500px]">
-                        {subject ? (
-                            <Map
-                                defaultCenter={subject.location}
-                                defaultZoom={12}
-                                streetViewControl={false}
-                                mapTypeId={'satellite'}
-                                mapId={'rov-comps-map'}
-                                gestureHandling={'greedy'}
-                            >
+                        <Map
+                            defaultZoom={4}
+                            defaultCenter={{
+                                lat: 36.205143,
+                                lng: -98.4736295,
+                            }}
+                            streetViewControl={false}
+                            mapTypeId={'satellite'}
+                            mapId={'rov-comps-map'}
+                            gestureHandling={'greedy'}
+                        >
+                            {subject && (
                                 <AdvancedMarker position={subject.location}>
                                     <SubjectPin />
                                 </AdvancedMarker>
-                                {appraisalComps.length
-                                    ? appraisalComps.map((c, index) => {
-                                          if (index > 2)
-                                              return <Marker position={c.location} key={c.id} />;
+                            )}
+                            {appraisalComps.length
+                                ? appraisalComps.map((c, index) => {
+                                      if (index > 2)
+                                          return <Marker position={c.location} key={c.id} />;
 
-                                          const Pin = getCompPinComponent(index, 'appraisal');
-                                          return (
-                                              <AdvancedMarker position={c.location} key={c.id}>
-                                                  <Pin />
-                                              </AdvancedMarker>
-                                          );
-                                      })
-                                    : null}
-                                {rovComps.length
-                                    ? rovComps.map((c, index) => {
-                                          if (index > 2)
-                                              return <Marker position={c.location} key={c.id} />;
-                                          const Pin = getCompPinComponent(index, 'rov');
-                                          return (
-                                              <AdvancedMarker position={c.location} key={c.id}>
-                                                  <Pin />
-                                              </AdvancedMarker>
-                                          );
-                                      })
-                                    : null}
-                                {(!!appraisalComps.length || !!rovComps.length) && (
-                                    <BoundsHandler
-                                        subject={subject}
-                                        appraisalComps={appraisalComps}
-                                        rovComps={rovComps}
-                                    />
-                                )}
-                            </Map>
-                        ) : (
-                            <div className="bg-surface-readonly flex justify-center items-center h-full w-full">
-                                <p>Enter a subject address to view map</p>
-                            </div>
-                        )}
+                                      const Pin = getCompPinComponent(index, 'appraisal');
+                                      return (
+                                          <AdvancedMarker position={c.location} key={c.id}>
+                                              <Pin />
+                                          </AdvancedMarker>
+                                      );
+                                  })
+                                : null}
+                            {rovComps.length
+                                ? rovComps.map((c, index) => {
+                                      if (index > 2)
+                                          return <Marker position={c.location} key={c.id} />;
+                                      const Pin = getCompPinComponent(index, 'rov');
+                                      return (
+                                          <AdvancedMarker position={c.location} key={c.id}>
+                                              <Pin />
+                                          </AdvancedMarker>
+                                      );
+                                  })
+                                : null}
+                            <BoundsHandler
+                                subject={subject}
+                                appraisalComps={appraisalComps}
+                                rovComps={rovComps}
+                            />
+                        </Map>
                         <div className="flex gap-8 mt-8">
                             <div className="flex-1 flex flex-col gap-4">
                                 <h3 className="text-lg font-bold">Appraisal Comps</h3>
@@ -257,7 +254,7 @@ function BoundsHandler({
     appraisalComps,
     rovComps,
 }: {
-    subject: SubjectProperty;
+    subject: SubjectProperty | null;
     appraisalComps: ComparableProperty[];
     rovComps: ComparableProperty[];
 }) {
@@ -275,8 +272,9 @@ function BoundsHandler({
 
         map.fitBounds(bounds);
 
-        if (all.length <= 1) {
+        if (all.length === 1) {
             map.setZoom(12);
+            map.setCenter(all[0].location);
         }
     }, [appraisalComps, map, rovComps, subject]);
 
