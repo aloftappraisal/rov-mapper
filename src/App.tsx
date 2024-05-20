@@ -16,8 +16,6 @@ import { getDistance } from './utils/getDistance';
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 function App() {
-    const [isDebugModeOn, setIsDebugModeOn] = useState(false);
-
     const [instructions, setInstructions] = useState<string>();
     const [subject, setSubject] = useState<SubjectProperty | null>(null);
 
@@ -31,14 +29,6 @@ function App() {
             <h1 className="text-3xl font-bold text-center">ROV Comparables Tool</h1>
             <div className="flex gap-8 flex-col lg:flex-row flex-1">
                 <div className="lg:basis-[500px] flex flex-col gap-4 self-center lg:self-start">
-                    <div>
-                        <button
-                            onClick={() => setIsDebugModeOn((x) => !x)}
-                            className="border border-gray-500 rounded px-2 py-1"
-                        >
-                            Turn {isDebugModeOn ? 'off' : 'on'} debug mode
-                        </button>
-                    </div>
                     <FormGroup for="instructions" label="Instructions">
                         <TextArea
                             id="instructions"
@@ -110,23 +100,6 @@ function App() {
                             onChange={(e) => setComments(e.target.value)}
                         />
                     </FormGroup>
-                    {isDebugModeOn && (
-                        <div className="max-h-96 overflow-auto bg-gray-100 p-2">
-                            <pre>
-                                {JSON.stringify(
-                                    {
-                                        instructions,
-                                        subject,
-                                        appraisalComps,
-                                        rovComps,
-                                        comments,
-                                    },
-                                    null,
-                                    2
-                                )}
-                            </pre>
-                        </div>
-                    )}
                 </div>
                 <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
                     <div className="flex-grow w-full lg:w-auto h-[500px]">
