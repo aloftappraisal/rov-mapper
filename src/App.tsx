@@ -11,6 +11,7 @@ import { makeCoordinates } from './utils/makeCoordinates';
 import { v4 as uuid } from 'uuid';
 import { FormGroup } from './components/FormGroup';
 import { TextArea } from './components/TextArea';
+import { getDistance } from './utils/getDistance';
 
 // TODO: Handle duplicate addresses
 
@@ -205,7 +206,16 @@ function App() {
                                             <CompListItem
                                                 key={comp.id}
                                                 index={index}
-                                                comp={comp}
+                                                comp={{
+                                                    ...comp,
+                                                    distance:
+                                                        subject !== null
+                                                            ? getDistance(
+                                                                  subject.location,
+                                                                  comp.location
+                                                              )
+                                                            : null,
+                                                }}
                                                 type="appraisal"
                                                 onDelete={() => {
                                                     setAppraisalComps((prev) => {
@@ -227,7 +237,16 @@ function App() {
                                             <CompListItem
                                                 key={comp.id}
                                                 index={index}
-                                                comp={comp}
+                                                comp={{
+                                                    ...comp,
+                                                    distance:
+                                                        subject !== null
+                                                            ? getDistance(
+                                                                  subject.location,
+                                                                  comp.location
+                                                              )
+                                                            : null,
+                                                }}
                                                 type="rov"
                                                 onDelete={() => {
                                                     setROVComps((prev) => {

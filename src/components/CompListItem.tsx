@@ -1,11 +1,12 @@
 import { CloseLine } from '../svg/CloseLine';
 import { ComparableProperty } from '../types';
 import { formatAddress } from '../utils/formatAddress';
+import { formatDistance } from '../utils/formatDistance';
 import { getCompPinComponent } from '../utils/getCompPinComponent';
 
 type Props = {
     index: number;
-    comp: ComparableProperty;
+    comp: ComparableProperty & { distance: number | null };
     type: 'appraisal' | 'rov';
     onDelete: () => void;
 };
@@ -21,8 +22,11 @@ export function CompListItem({ index, comp, type, onDelete }: Props) {
                 >
                     <Pin />
                 </span>
-                <div className="flex-grow flex">
+                <div className="flex-grow flex flex-col">
                     <span>{formatAddress(comp.address)}</span>
+                    <span className="text-sm text-text-secondary">
+                        {formatDistance(comp.distance)}
+                    </span>
                 </div>
                 <span className="shrink-0">
                     <button

@@ -10,6 +10,7 @@ export default {
             },
             colors: {
                 'text-primary': '#072138',
+                'text-secondary': '#394D60',
                 'surface-1': '#FFF',
                 'surface-2': '#F7F7F7',
                 'surface-readonly': '#e1e4e7',
