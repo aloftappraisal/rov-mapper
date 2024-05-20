@@ -6,8 +6,6 @@ import { GoogleMapsAutocompleteInput } from './components/GoogleMapsAutocomplete
 import { SubjectPin } from './svg/SubjectPin';
 import { ComparableProperty, SubjectProperty } from './types';
 import { getCompPinComponent } from './utils/getCompPinComponent';
-import { makeAddress } from './utils/makeAddress';
-import { makeCoordinates } from './utils/makeCoordinates';
 import { v4 as uuid } from 'uuid';
 import { FormGroup } from './components/FormGroup';
 import { TextArea } from './components/TextArea';
@@ -53,13 +51,7 @@ function App() {
                         <GoogleMapsAutocompleteInput
                             id="subject"
                             className="w-full border border-gray-500 rounded px-2 py-1"
-                            onPlaceChange={(place) => {
-                                if (!place?.geometry?.location) return;
-                                if (!place?.address_components?.length) return;
-
-                                const address = makeAddress(place.address_components);
-                                const location = makeCoordinates(place.geometry.location);
-
+                            onPlaceChange={({ address, location }) => {
                                 setSubject({
                                     address,
                                     location,
@@ -80,13 +72,7 @@ function App() {
                                 id="appraisal-comp"
                                 className="w-full border border-gray-500 rounded px-2 py-1"
                                 clearOnPlaceChange
-                                onPlaceChange={(place) => {
-                                    if (!place?.geometry?.location) return;
-                                    if (!place?.address_components?.length) return;
-
-                                    const address = makeAddress(place.address_components);
-                                    const location = makeCoordinates(place.geometry.location);
-
+                                onPlaceChange={({ address, location }) => {
                                     setAppraisalComps((prev) => [
                                         ...prev,
                                         {
@@ -103,13 +89,7 @@ function App() {
                                 id="rov-sale"
                                 className="w-full border border-gray-500 rounded px-2 py-1"
                                 clearOnPlaceChange
-                                onPlaceChange={(place) => {
-                                    if (!place?.geometry?.location) return;
-                                    if (!place?.address_components?.length) return;
-
-                                    const address = makeAddress(place.address_components);
-                                    const location = makeCoordinates(place.geometry.location);
-
+                                onPlaceChange={({ address, location }) => {
                                     setROVComps((prev) => [
                                         ...prev,
                                         {
