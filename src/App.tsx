@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
+import { Button } from './components/Button';
 import { CompList } from './components/CompList';
 import { CompListHeader } from './components/CompListHeader';
 import { FormGroup } from './components/FormGroup';
@@ -9,16 +10,57 @@ import { TextArea } from './components/TextArea';
 import { useComps } from './hooks/useComps';
 import { Logo } from './svg/Logo';
 import { Property } from './types';
-import { Button } from './components/Button';
+import { PDFViewer, pdf } from '@react-pdf/renderer';
+import { Export } from './export/Export';
+import { PDF_EXPORT_FILENAME } from './consts';
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 function App() {
-    const [subject, setSubject] = useState<Property | null>(null);
+    const [subject, setSubject] = useState<Property | null>({
+        id: '1e69869f-8484-4a08-b1a2-290b9835ef70',
+        address: {
+            streetNumber: '13167',
+            streetAddress: 'Stoepel St',
+            city: 'Detroit',
+            state: 'MI',
+            country: 'US',
+            zip: '48238',
+            plusFour: '5101',
+        },
+        location: {
+            lat: 42.3850821,
+            lng: -83.1407974,
+        },
+    });
     const { appraisalComps, rovComps, addComp, removeComp } = useComps();
     const [comments, setComments] = useState<string>('');
 
     const canExportPDF = !!subject && !!appraisalComps.length && !!rovComps.length;
+
+    const downloadPDf = async () => {
+        if (!subject) return;
+        const blob = await pdf(
+            <Export
+                subject={subject}
+                appraisalComps={appraisalComps}
+                rovComps={rovComps}
+                comments={comments}
+                apiKey={GOOGLE_MAPS_API_KEY}
+            />
+        ).toBlob();
+        const blobUrl = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = blobUrl;
+
+        link.setAttribute('download', PDF_EXPORT_FILENAME);
+        document.body.appendChild(link);
+        link.click();
+
+        document.body.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+    };
 
     return (
         <div className="h-full flex flex-col lg:overflow-hidden">
@@ -27,7 +69,7 @@ function App() {
                     <Logo />
                     <h1 className="text-xl font-bold text-center">ROV Comparables Tool</h1>
                 </div>
-                <Button size="sm" disabled={!canExportPDF}>
+                <Button size="sm" disabled={!canExportPDF} onClick={downloadPDf}>
                     Export to PDF
                 </Button>
             </header>
@@ -80,7 +122,20 @@ function App() {
                             onChange={(e) => setComments(e.target.value)}
                         />
                     </FormGroup>
-                    <Button disabled={!canExportPDF}>Export to PDF</Button>
+                    <Button disabled={!canExportPDF} onClick={downloadPDf}>
+                        Export to PDF
+                    </Button>
+                    {/* {!!subject && (
+                        <PDFViewer height={500}>
+                            <Export
+                                subject={subject}
+                                appraisalComps={appraisalComps}
+                                rovComps={rovComps}
+                                comments={comments}
+                                apiKey={GOOGLE_MAPS_API_KEY}
+                            />
+                        </PDFViewer>
+                    )} */}
                 </div>
                 <div className="flex flex-col lg:overflow-auto flex-grow">
                     <div className="h-[500px] shrink-0">
