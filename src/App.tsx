@@ -26,7 +26,7 @@ function App() {
                 <Logo />
                 <h1 className="text-xl font-bold text-center">ROV Comparables Tool</h1>
             </header>
-            <main className="flex-grow flex flex-col lg:flex-row gap-8 lg:overflow-hidden lg:w-[1500px] lg:mx-auto p-4">
+            <main className="flex-grow flex flex-col lg:flex-row gap-8 lg:overflow-hidden lg:max-w-[1500px] lg:w-full lg:mx-auto p-4">
                 <div className="flex flex-col gap-4 self-center lg:self-start lg:basis-[500px] shrink-0">
                     <FormGroup for="instructions" label="Instructions">
                         <TextArea
@@ -84,7 +84,6 @@ function App() {
                         />
                     </FormGroup>
                 </div>
-                {/* this is what worked: */}
                 <div className="flex flex-col lg:overflow-auto flex-grow">
                     <div className="h-[500px] shrink-0">
                         <Map
