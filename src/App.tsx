@@ -10,12 +10,9 @@ import { useComps } from './hooks/useComps';
 import { Logo } from './svg/Logo';
 import { Property } from './types';
 
-// TODO: Handle duplicate addresses
-
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 function App() {
-    const [instructions, setInstructions] = useState<string>();
     const [subject, setSubject] = useState<Property | null>(null);
     const { appraisalComps, rovComps, addComp, removeComp } = useComps();
     const [comments, setComments] = useState<string>();
@@ -28,15 +25,7 @@ function App() {
             </header>
             <main className="flex-grow flex flex-col lg:flex-row gap-8 lg:overflow-hidden lg:max-w-[1500px] lg:w-full lg:mx-auto p-4">
                 <div className="flex flex-col gap-4 self-center lg:self-start lg:basis-[500px] shrink-0">
-                    <FormGroup for="instructions" label="Instructions">
-                        <TextArea
-                            id="instructions"
-                            className="h-16"
-                            value={instructions}
-                            onChange={(e) => setInstructions(e.target.value)}
-                        />
-                    </FormGroup>
-                    <FormGroup for="subject" label="Subject property address">
+                    <FormGroup for="subject" label="Subject Property Address">
                         <GoogleMapsAutocompleteInput
                             id="subject"
                             onPlaceChange={({ address, location }) => {
@@ -65,9 +54,9 @@ function App() {
                                 }}
                             />
                         </FormGroup>
-                        <FormGroup for="rov-sale" label="Add ROV Sale" className="flex-1">
+                        <FormGroup for="rov-comp" label="Add ROV Comp" className="flex-1">
                             <GoogleMapsAutocompleteInput
-                                id="rov-sale"
+                                id="rov-comp"
                                 clearOnPlaceChange
                                 onPlaceChange={({ address, location }) => {
                                     addComp('rov', { address, location });
@@ -75,10 +64,10 @@ function App() {
                             />
                         </FormGroup>
                     </div>
-                    <FormGroup for="comments" label="Comments">
+                    <FormGroup for="comments" label="Reconsideration of Value Comments">
                         <TextArea
                             id="comments"
-                            className="h-56"
+                            className="h-96"
                             value={comments}
                             onChange={(e) => setComments(e.target.value)}
                         />
