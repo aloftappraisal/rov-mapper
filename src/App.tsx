@@ -7,6 +7,7 @@ import { GoogleMapsAutocompleteInput } from './components/GoogleMapsAutocomplete
 import { Map } from './components/Map';
 import { TextArea } from './components/TextArea';
 import { useComps } from './hooks/useComps';
+import { Logo } from './svg/Logo';
 import { Property } from './types';
 
 // TODO: Handle duplicate addresses
@@ -21,8 +22,9 @@ function App() {
 
     return (
         <div className="h-full flex flex-col lg:overflow-hidden">
-            <header>
-                <h1 className="text-3xl font-bold text-center">ROV Comparables Tool</h1>
+            <header className="bg-surface-1 shrink-0 h-12 border-b px-2 flex items-center gap-3">
+                <Logo />
+                <h1 className="text-xl font-bold text-center">ROV Comparables Tool</h1>
             </header>
             <main className="flex-grow flex flex-col lg:flex-row gap-8 lg:overflow-hidden lg:w-[1500px] lg:mx-auto p-4">
                 <div className="flex flex-col gap-4 self-center lg:self-start lg:basis-[500px] shrink-0">
