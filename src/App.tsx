@@ -10,7 +10,7 @@ import { TextArea } from './components/TextArea';
 import { useComps } from './hooks/useComps';
 import { Logo } from './svg/Logo';
 import { Property } from './types';
-import { PDFViewer, pdf } from '@react-pdf/renderer';
+import { pdf } from '@react-pdf/renderer';
 import { Export } from './export/Export';
 import { PDF_EXPORT_FILENAME } from './consts';
 
@@ -118,6 +118,7 @@ function App() {
                         <TextArea
                             id="comments"
                             className="h-96"
+                            placeholder="Enter comments"
                             value={comments}
                             onChange={(e) => setComments(e.target.value)}
                         />
@@ -125,17 +126,6 @@ function App() {
                     <Button disabled={!canExportPDF} onClick={downloadPDf}>
                         Export to PDF
                     </Button>
-                    {/* {!!subject && (
-                        <PDFViewer height={500}>
-                            <Export
-                                subject={subject}
-                                appraisalComps={appraisalComps}
-                                rovComps={rovComps}
-                                comments={comments}
-                                apiKey={GOOGLE_MAPS_API_KEY}
-                            />
-                        </PDFViewer>
-                    )} */}
                 </div>
                 <div className="flex flex-col lg:overflow-auto flex-grow">
                     <div className="h-[500px] shrink-0">

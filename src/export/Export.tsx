@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export function Export({ subject, appraisalComps, rovComps, comments, apiKey }: ExportProps) {
+export function Export({ subject, appraisalComps, rovComps, apiKey }: ExportProps) {
     return (
         <Document>
             <Page>
