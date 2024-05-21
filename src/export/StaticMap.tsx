@@ -18,9 +18,11 @@ export function StaticMap({ subject, appraisalComps, rovComps, apiKey }: Props) 
 
     const subjectMarker = makeMarkerString(subject.location, 'red', 'S');
     const appraisalCompsMarkers = appraisalComps.map((comp, i) =>
-        makeMarkerString(comp.location, 'blue', i)
+        makeMarkerString(comp.location, 'blue', i + 1)
     );
-    const rovCompsMarkers = rovComps.map((comp, i) => makeMarkerString(comp.location, 'green', i));
+    const rovCompsMarkers = rovComps.map((comp, i) =>
+        makeMarkerString(comp.location, 'green', i + 1)
+    );
 
     const markerParamsString = [subjectMarker]
         .concat(appraisalCompsMarkers)
