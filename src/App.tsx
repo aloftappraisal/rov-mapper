@@ -9,19 +9,27 @@ import { TextArea } from './components/TextArea';
 import { useComps } from './hooks/useComps';
 import { Logo } from './svg/Logo';
 import { Property } from './types';
+import { Button } from './components/Button';
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 function App() {
     const [subject, setSubject] = useState<Property | null>(null);
     const { appraisalComps, rovComps, addComp, removeComp } = useComps();
-    const [comments, setComments] = useState<string>();
+    const [comments, setComments] = useState<string>('');
+
+    const canExportPDF = !!subject && !!appraisalComps.length && !!rovComps.length;
 
     return (
         <div className="h-full flex flex-col lg:overflow-hidden">
-            <header className="bg-surface-1 shrink-0 h-12 border-b px-2 flex items-center gap-3">
-                <Logo />
-                <h1 className="text-xl font-bold text-center">ROV Comparables Tool</h1>
+            <header className="bg-surface-1 shrink-0 h-12 border-b px-2 flex items-center justify-between">
+                <div className="flex items-center justify-between gap-3">
+                    <Logo />
+                    <h1 className="text-xl font-bold text-center">ROV Comparables Tool</h1>
+                </div>
+                <Button size="sm" disabled={!canExportPDF}>
+                    Export to PDF
+                </Button>
             </header>
             <main className="flex-grow flex flex-col lg:flex-row gap-8 lg:overflow-hidden lg:max-w-[1500px] lg:w-full lg:mx-auto p-4">
                 <div className="flex flex-col gap-4 self-center lg:self-start lg:basis-[500px] shrink-0">
@@ -72,6 +80,7 @@ function App() {
                             onChange={(e) => setComments(e.target.value)}
                         />
                     </FormGroup>
+                    <Button disabled={!canExportPDF}>Export to PDF</Button>
                 </div>
                 <div className="flex flex-col lg:overflow-auto flex-grow">
                     <div className="h-[500px] shrink-0">
