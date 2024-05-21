@@ -16,7 +16,7 @@ export function CompList({ type, comps, subject, removeComp }: Props) {
     }
 
     return (
-        <ol className="flex flex-col gap-2 max-h-56 overflow-auto">
+        <ol className="flex flex-col gap-2">
             {comps.map((comp, index) => (
                 <CompListItem
                     key={comp.id}

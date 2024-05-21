@@ -20,12 +20,12 @@ function App() {
     const [comments, setComments] = useState<string>();
 
     return (
-        <div className="max-w-[1500px] py-4 px-6 mx-auto min-h-full flex flex-col">
-            <header className="mb-8">
+        <div className="h-full flex flex-col lg:overflow-hidden">
+            <header>
                 <h1 className="text-3xl font-bold text-center">ROV Comparables Tool</h1>
             </header>
-            <main className="flex gap-8 flex-col lg:flex-row flex-1">
-                <div className="flex flex-col gap-4 self-center lg:self-start lg:basis-[500px]">
+            <main className="flex-grow flex flex-col lg:flex-row gap-8 lg:overflow-hidden lg:w-[1500px] lg:mx-auto p-4">
+                <div className="flex flex-col gap-4 self-center lg:self-start lg:basis-[500px] shrink-0">
                     <FormGroup for="instructions" label="Instructions">
                         <TextArea
                             id="instructions"
@@ -82,8 +82,9 @@ function App() {
                         />
                     </FormGroup>
                 </div>
-                <div className="flex-grow w-full lg:w-auto">
-                    <div className="h-[500px]">
+                {/* this is what worked: */}
+                <div className="flex flex-col lg:overflow-auto flex-grow">
+                    <div className="h-[500px] shrink-0">
                         <Map
                             apiKey={GOOGLE_MAPS_API_KEY}
                             subject={subject}
@@ -91,24 +92,28 @@ function App() {
                             rovComps={rovComps}
                         />
                     </div>
-                    <div className="flex gap-8 mt-8">
-                        <div className="flex-1 flex flex-col gap-4">
+                    <div className="flex gap-8 mt-8 flex-grow lg:overflow-hidden">
+                        <div className="flex-1 flex flex-col gap-4 lg:overflow-auto">
                             <CompListHeader type="appraisal" numComps={appraisalComps.length} />
-                            <CompList
-                                type="appraisal"
-                                comps={appraisalComps}
-                                subject={subject}
-                                removeComp={removeComp}
-                            />
+                            <div className="lg:overflow-auto">
+                                <CompList
+                                    type="appraisal"
+                                    comps={appraisalComps}
+                                    subject={subject}
+                                    removeComp={removeComp}
+                                />
+                            </div>
                         </div>
-                        <div className="flex-1 flex flex-col gap-4">
+                        <div className="flex-1 flex flex-col gap-4 lg:overflow-auto">
                             <CompListHeader type="rov" numComps={rovComps.length} />
-                            <CompList
-                                type="rov"
-                                comps={rovComps}
-                                subject={subject}
-                                removeComp={removeComp}
-                            />
+                            <div className="lg:overflow-auto">
+                                <CompList
+                                    type="rov"
+                                    comps={rovComps}
+                                    subject={subject}
+                                    removeComp={removeComp}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
