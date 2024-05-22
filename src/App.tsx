@@ -32,7 +32,9 @@ function App() {
         <div className="h-full flex flex-col lg:overflow-hidden">
             <header className="bg-surface-1 shrink-0 h-12 border-b px-2 flex items-center justify-between">
                 <div className="flex items-center justify-between gap-3">
-                    <Logo />
+                    <a href="https://www.aloftappraisal.com" target="_blank">
+                        <Logo />
+                    </a>
                     <h1 className="text-xl font-bold text-center">ROV Mapper</h1>
                 </div>
                 <Button size="sm" disabled={!isReady} onClick={downloadPDF}>
