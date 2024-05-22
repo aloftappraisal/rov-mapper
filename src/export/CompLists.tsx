@@ -21,7 +21,7 @@ export function CompLists({ subject, appraisalComps, rovComps }: Props) {
         const rovComp = rovComps[i];
 
         const row = (
-            <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }} break>
+            <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
                 <CompCell type="appraisal" index={i} subject={subject} comp={appraisalComp} />
                 <CompCell type="rov" index={i} subject={subject} comp={rovComp} />
             </View>
@@ -47,7 +47,7 @@ function CompCell({
     if (!comp) return null;
     const distance = getDistance(subject.location, comp.location);
     return (
-        <View style={{ flex: 1, display: 'flex', gap: 4 }}>
+        <View style={{ flex: 1, display: 'flex', gap: 4 }} wrap={false}>
             <View>
                 <CompMarkerSVG type={type} index={index} env="export" size="sm" />
             </View>

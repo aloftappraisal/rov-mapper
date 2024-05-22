@@ -69,7 +69,7 @@ export function Export({ subject, appraisalComps, rovComps, comments, apiKey }: 
                         rovComps={rovComps}
                     />
                 </View>
-                <View break style={{ display: 'flex', gap: 16 }}>
+                <View break style={{ display: 'flex', gap: 16 }} wrap={false}>
                     <Text size="lg">Comments</Text>
                     <Text style={{ lineHeight: 1.75 }}>{comments}</Text>
                 </View>
