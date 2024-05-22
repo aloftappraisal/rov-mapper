@@ -1,4 +1,4 @@
-import { MARKER_SVG_VIEWBOX_DIMENSIONS } from '../consts';
+import { MARKER_SVG_VIEWBOX_DIMENSIONS, SUBJECT_MARKER_COLOR } from '../consts';
 import { MapMarkerEnv, MapMarkerSize } from '../types';
 import { getMapMarkerDimensions } from '../utils/getMapMarkerDimensions';
 
@@ -19,7 +19,7 @@ export function SubjectMarkerSVG({ size = 'md' }: Props) {
         >
             <path
                 d="M18.5 9.91304C18.5 12.4863 17.3285 14.7245 15.5481 16.9351C14.3446 18.4293 12.9024 19.8671 11.3939 21.371C10.7699 21.9931 10.1345 22.6265 9.5 23.2799C8.86548 22.6265 8.23012 21.9931 7.60611 21.371C6.09757 19.8671 4.65538 18.4293 3.45191 16.9351C1.67154 14.7245 0.5 12.4863 0.5 9.91304C0.5 4.69409 4.54928 0.5 9.5 0.5C14.4507 0.5 18.5 4.69409 18.5 9.91304Z"
-                fill="#FA3C48"
+                fill={SUBJECT_MARKER_COLOR.toColorCode()}
                 stroke="white"
             />
             <g clip-path="url(#clip0_13620_51483)">

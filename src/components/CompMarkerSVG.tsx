@@ -1,5 +1,5 @@
 import { Path as ReactPDFPath, Svg as ReactPDFSvg } from '@react-pdf/renderer';
-import { MARKER_SVG_VIEWBOX_DIMENSIONS } from '../consts';
+import { APPRAISAL_MARKER_COLOR, MARKER_SVG_VIEWBOX_DIMENSIONS, ROV_MARKER_COLOR } from '../consts';
 import { CompType, MapMarkerEnv, MapMarkerSize } from '../types';
 import { getMapMarkerDimensions } from '../utils/getMapMarkerDimensions';
 import { getMaxComps } from '../utils/getMaxComps';
@@ -38,7 +38,10 @@ export function CompMarkerSVG({ type, index, env, size = 'md' }: Props) {
 
     const { width, height } = getMapMarkerDimensions(size);
     const numberPath = indexToPath[index];
-    const pinFill = type === 'appraisal' ? '#9552EE' : '#13B5CB';
+    const pinFill =
+        type === 'appraisal'
+            ? APPRAISAL_MARKER_COLOR.toColorCode()
+            : ROV_MARKER_COLOR.toColorCode();
 
     return (
         <SvgElement

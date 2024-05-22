@@ -1,6 +1,7 @@
 import { Image } from '@react-pdf/renderer';
-import { ExportProps } from './types';
+import { APPRAISAL_MARKER_COLOR, ROV_MARKER_COLOR, SUBJECT_MARKER_COLOR } from '../consts';
 import { Coordinates } from '../types';
+import { ExportProps } from './types';
 
 type Props = {
     subject: ExportProps['subject'];
@@ -18,12 +19,12 @@ export function StaticMap({ subject, appraisalComps, rovComps, width, height, ap
         key: apiKey,
     });
 
-    const subjectMarker = makeMarkerString(subject.location, 'red', 'S');
+    const subjectMarker = makeMarkerString(subject.location, SUBJECT_MARKER_COLOR.toHex(), 'S');
     const appraisalCompsMarkers = appraisalComps.map((comp, i) =>
-        makeMarkerString(comp.location, 'blue', i + 1)
+        makeMarkerString(comp.location, APPRAISAL_MARKER_COLOR.toHex(), i + 1)
     );
     const rovCompsMarkers = rovComps.map((comp, i) =>
-        makeMarkerString(comp.location, 'green', i + 1)
+        makeMarkerString(comp.location, ROV_MARKER_COLOR.toHex(), i + 1)
     );
 
     const markerParamsString = [subjectMarker]
@@ -40,12 +41,7 @@ function makeCoodinatesString(location: Coordinates): string {
     return `${location.lat},${location.lng}`;
 }
 
-// TODO: Use SUI colors once pins are determined (e.g., `0x3455DB`)
-function makeMarkerString(
-    location: Coordinates,
-    color: 'red' | 'green' | 'blue',
-    label: string | number
-): string {
+function makeMarkerString(location: Coordinates, color: string, label: string | number): string {
     const encodedValue = encodeURIComponent(
         `color:${color}|label:${label}|${makeCoodinatesString(location)}`
     );
