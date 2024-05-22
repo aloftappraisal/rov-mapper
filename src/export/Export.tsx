@@ -1,4 +1,5 @@
 import { Document, View } from '@react-pdf/renderer';
+import { SubjectMarkerSVG } from '../components/SubjectMarkerSVG';
 import { formatAddress } from '../utils/formatAddress';
 import { CompLists } from './CompLists';
 import { Page } from './Page';
@@ -12,20 +13,34 @@ export function Export({ subject, appraisalComps, rovComps, comments, apiKey }: 
             <Page>
                 <View
                     style={{
-                        alignSelf: 'center',
                         display: 'flex',
-                        alignItems: 'center',
                         gap: 16,
                     }}
                 >
-                    <Text size="xl" style={{ fontWeight: 'bold' }}>
+                    <Text size="xl" style={{ fontWeight: 'bold', alignSelf: 'center' }}>
                         ROV Mapper
                     </Text>
-                    {/* TODO: Handle subject overflow */}
-                    <Text>
-                        Subject:
-                        {formatAddress(subject.address)}
-                    </Text>
+                    <View
+                        style={{
+                            display: 'flex',
+                            gap: 4,
+                        }}
+                    >
+                        <View
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                gap: 4,
+                            }}
+                        >
+                            <SubjectMarkerSVG env="export" size="sm" />
+                            <Text>Subject:</Text>
+                        </View>
+                        <Text style={{ height: 36, textOverflow: 'ellipsis' }}>
+                            {formatAddress(subject.address)}
+                        </Text>
+                    </View>
                 </View>
                 <View style={{ flexGrow: 1 }}>
                     <StaticMap
@@ -33,7 +48,7 @@ export function Export({ subject, appraisalComps, rovComps, comments, apiKey }: 
                         appraisalComps={appraisalComps}
                         rovComps={rovComps}
                         width="535" // NOTE: Width and height need to be updated if the layout of the page changes
-                        height="627"
+                        height="565"
                         apiKey={apiKey}
                     />
                 </View>
