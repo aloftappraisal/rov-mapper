@@ -130,6 +130,19 @@ function App() {
                     </div>
                 </div>
             </main>
+            <footer className="shrink-0 w-full bg-surface-1 py-4 text-text-primary border-t">
+                <p className="text-sm text-center">
+                    Looking for data-backed adjustment support in your market? Check out our{' '}
+                    <a
+                        href="https://www.aloftappraisal.com/appraiser-toolkit"
+                        target="_blank"
+                        className="text-button-default"
+                    >
+                        Appraiser Toolkit
+                    </a>
+                    .
+                </p>
+            </footer>
         </div>
     );
 }
