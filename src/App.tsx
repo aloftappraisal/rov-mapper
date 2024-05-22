@@ -16,7 +16,8 @@ const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 function App() {
     const [subject, setSubject] = useState<Property | null>(null);
-    const { appraisalComps, rovComps, addComp, removeComp } = useComps();
+    const { appraisalComps, rovComps, canAddAppraisalComp, canAddROVComp, addComp, removeComp } =
+        useComps();
     const [comments, setComments] = useState<string>('');
 
     const { isReady, downloadPDF } = useExport({
@@ -63,6 +64,7 @@ function App() {
                         >
                             <GoogleMapsAutocompleteInput
                                 id="appraisal-comp"
+                                disabled={!canAddAppraisalComp}
                                 clearOnPlaceChange
                                 onPlaceChange={({ address, location }) => {
                                     addComp('appraisal', { address, location });
@@ -72,6 +74,7 @@ function App() {
                         <FormGroup for="rov-comp" label="Add ROV Comp" className="flex-1">
                             <GoogleMapsAutocompleteInput
                                 id="rov-comp"
+                                disabled={!canAddROVComp}
                                 clearOnPlaceChange
                                 onPlaceChange={({ address, location }) => {
                                     addComp('rov', { address, location });
