@@ -21,23 +21,25 @@ const indexToPath: Record<number, string> = {
 
 type Props = {
     type: CompType;
-    index: number;
     env: MapMarkerEnv;
+    index?: number;
     size?: MapMarkerSize;
 };
 
 export function CompMarkerSVG({ type, index, env, size = 'md' }: Props) {
-    const maxComps = getMaxComps(type);
-    if (index >= maxComps) {
-        console.warn(`Expected at most ${maxComps} comps but got comp with index ${index}`);
-        return <span>{(index + 1).toLocaleString()}</span>;
+    const hasNumber = typeof index === 'number';
+    if (hasNumber) {
+        const maxComps = getMaxComps(type);
+        if (index >= maxComps) {
+            console.warn(`Expected at most ${maxComps} comps but got comp with index ${index}`);
+            return <span>{(index + 1).toLocaleString()}</span>;
+        }
     }
 
     const SvgElement = env === 'web' ? 'svg' : ReactPDFSvg;
     const PathElement = env === 'web' ? 'path' : ReactPDFPath;
 
     const { width, height } = getMapMarkerDimensions(size);
-    const numberPath = indexToPath[index];
     const pinFill =
         type === 'appraisal'
             ? APPRAISAL_MARKER_COLOR.toColorCode()
@@ -54,7 +56,7 @@ export function CompMarkerSVG({ type, index, env, size = 'md' }: Props) {
                 fill={pinFill}
                 stroke="#FFF"
             />
-            <PathElement d={numberPath} fill="#FFF" />
+            {hasNumber && <PathElement d={indexToPath[index]} fill="#FFF" />}
         </SvgElement>
     );
 }
