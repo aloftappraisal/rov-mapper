@@ -15,22 +15,7 @@ import { useExport } from './hooks/useExport';
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 function App() {
-    const [subject, setSubject] = useState<Property | null>({
-        id: '1e69869f-8484-4a08-b1a2-290b9835ef70',
-        address: {
-            streetNumber: '13167',
-            streetAddress: 'Stoepel St',
-            city: 'Detroit',
-            state: 'MI',
-            country: 'US',
-            zip: '48238',
-            plusFour: '5101',
-        },
-        location: {
-            lat: 42.3850821,
-            lng: -83.1407974,
-        },
-    });
+    const [subject, setSubject] = useState<Property | null>(null);
     const { appraisalComps, rovComps, addComp, removeComp } = useComps();
     const [comments, setComments] = useState<string>('');
 

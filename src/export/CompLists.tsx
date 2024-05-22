@@ -47,7 +47,7 @@ function CompCell({
     if (!comp) return null;
     const distance = getDistance(subject.location, comp.location);
     return (
-        <View style={{ flex: 1, display: 'flex', gap: 4 }} debug>
+        <View style={{ flex: 1, display: 'flex', gap: 4 }}>
             <View>
                 <CompMarkerSVG type={type} index={index} env="export" size="sm" />
             </View>
