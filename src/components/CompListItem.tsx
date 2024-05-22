@@ -1,26 +1,24 @@
 import { CloseLine } from '../svg/CloseLine';
-import { Property } from '../types';
+import { CompType, Property } from '../types';
 import { formatAddress } from '../utils/formatAddress';
 import { formatDistance } from '../utils/formatDistance';
-import { getCompPinComponent } from '../utils/getCompPinComponent';
+import { CompMarkerSVG } from './CompMarkerSVG';
 
 type Props = {
     index: number;
     comp: Property & { distance: number | null };
-    type: 'appraisal' | 'rov';
+    type: CompType;
     onDelete: () => void;
 };
 
 export function CompListItem({ index, comp, type, onDelete }: Props) {
-    const Pin = getCompPinComponent(type, index);
-
     return (
         <li className="bg-surface-1 p-3 rounded shadow">
             <div className="flex gap-2">
                 <span
                     className="mt-[2px] shrink-0" // visual baseline alignment
                 >
-                    <Pin />
+                    <CompMarkerSVG type={type} index={index} env="web" size="sm" />
                 </span>
                 <div className="flex-grow flex flex-col">
                     <span>{formatAddress(comp.address)}</span>

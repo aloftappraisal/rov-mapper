@@ -1,9 +1,10 @@
 import { View } from '@react-pdf/renderer';
-import { Property } from '../types';
+import { CompMarkerSVG } from '../components/CompMarkerSVG';
+import { CompType, Property } from '../types';
 import { formatAddress } from '../utils/formatAddress';
-import { Text } from './Text';
-import { getDistance } from '../utils/getDistance';
 import { formatDistance } from '../utils/formatDistance';
+import { getDistance } from '../utils/getDistance';
+import { Text } from './Text';
 
 type Props = {
     subject: Property;
@@ -21,12 +22,8 @@ export function CompLists({ subject, appraisalComps, rovComps }: Props) {
 
         const row = (
             <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }} break>
-                <View style={{ flex: 1 }}>
-                    <CompCell subject={subject} comp={appraisalComp} />
-                </View>
-                <View style={{ flex: 1 }}>
-                    <CompCell subject={subject} comp={rovComp} />
-                </View>
+                <CompCell type="appraisal" index={i} subject={subject} comp={appraisalComp} />
+                <CompCell type="rov" index={i} subject={subject} comp={rovComp} />
             </View>
         );
 
@@ -36,15 +33,30 @@ export function CompLists({ subject, appraisalComps, rovComps }: Props) {
     return rows;
 }
 
-function CompCell({ subject, comp }: { subject: Property; comp: Property | undefined }) {
+function CompCell({
+    type,
+    index,
+    subject,
+    comp,
+}: {
+    type: CompType;
+    index: number;
+    subject: Property;
+    comp: Property | undefined;
+}) {
     if (!comp) return null;
     const distance = getDistance(subject.location, comp.location);
     return (
-        <View style={{ display: 'flex', gap: 4 }}>
-            <Text>{formatAddress(comp.address)}</Text>
-            <Text size="sm" color="textSecondary">
-                {formatDistance(distance)}
-            </Text>
+        <View style={{ flex: 1, display: 'flex', gap: 4 }} debug>
+            <View>
+                <CompMarkerSVG type={type} index={index} env="export" size="sm" />
+            </View>
+            <View style={{ display: 'flex', gap: 4 }}>
+                <Text>{formatAddress(comp.address)}</Text>
+                <Text size="sm" color="textSecondary">
+                    {formatDistance(distance)}
+                </Text>
+            </View>
         </View>
     );
 }

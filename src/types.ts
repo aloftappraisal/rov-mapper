@@ -20,3 +20,6 @@ export type Property = {
 };
 
 export type CompType = 'appraisal' | 'rov';
+
+export type MapMarkerSize = 'sm' | 'md';
+export type MapMarkerEnv = 'web' | 'export';

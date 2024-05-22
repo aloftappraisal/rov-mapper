@@ -1,11 +1,21 @@
-export function SubjectPin() {
+import { MARKER_SVG_VIEWBOX_DIMENSIONS } from '../consts';
+import { MapMarkerEnv, MapMarkerSize } from '../types';
+import { getMapMarkerDimensions } from '../utils/getMapMarkerDimensions';
+
+type Props = {
+    env: MapMarkerEnv;
+    size?: MapMarkerSize;
+};
+
+// TODO: Render in export
+
+export function SubjectMarkerSVG({ size = 'md' }: Props) {
+    const { width, height } = getMapMarkerDimensions(size);
     return (
         <svg
-            width="19"
-            height="24"
-            viewBox="0 0 19 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            width={width}
+            height={height}
+            viewBox={`0 0 ${MARKER_SVG_VIEWBOX_DIMENSIONS.width} ${MARKER_SVG_VIEWBOX_DIMENSIONS.height}`}
         >
             <path
                 d="M18.5 9.91304C18.5 12.4863 17.3285 14.7245 15.5481 16.9351C14.3446 18.4293 12.9024 19.8671 11.3939 21.371C10.7699 21.9931 10.1345 22.6265 9.5 23.2799C8.86548 22.6265 8.23012 21.9931 7.60611 21.371C6.09757 19.8671 4.65538 18.4293 3.45191 16.9351C1.67154 14.7245 0.5 12.4863 0.5 9.91304C0.5 4.69409 4.54928 0.5 9.5 0.5C14.4507 0.5 18.5 4.69409 18.5 9.91304Z"

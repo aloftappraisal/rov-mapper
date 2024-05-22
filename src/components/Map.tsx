@@ -6,10 +6,10 @@ import {
     useMap,
 } from '@vis.gl/react-google-maps';
 import { useEffect } from 'react';
-import { SubjectPin } from '../svg/SubjectPin';
 import { CompType, Property } from '../types';
-import { getCompPinComponent } from '../utils/getCompPinComponent';
 import { getMaxComps } from '../utils/getMaxComps';
+import { CompMarkerSVG } from './CompMarkerSVG';
+import { SubjectMarkerSVG } from './SubjectMarkerSVG';
 
 type Props = {
     apiKey: string;
@@ -34,7 +34,7 @@ export function Map({ apiKey, subject, appraisalComps, rovComps }: Props) {
             >
                 {subject && (
                     <AdvancedMarker position={subject.location}>
-                        <SubjectPin />
+                        <SubjectMarkerSVG env="web" />
                     </AdvancedMarker>
                 )}
                 {getCompMarkers('appraisal', appraisalComps)}
@@ -66,10 +66,9 @@ function getCompMarkers(compType: CompType, comps: Property[]): React.ReactNode[
             continue;
         }
 
-        const Pin = getCompPinComponent(compType, i);
         markers.push(
             <AdvancedMarker position={comp.location} key={comp.id}>
-                <Pin />
+                <CompMarkerSVG type={compType} index={i} env="web" />
             </AdvancedMarker>
         );
     }
@@ -98,7 +97,7 @@ function BoundsHandler({
             bounds.extend(prop.location);
         });
 
-        map.fitBounds(bounds);
+        map.fitBounds(bounds, 18);
 
         if (all.length === 1) {
             map.setZoom(12);

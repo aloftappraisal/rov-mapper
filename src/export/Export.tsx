@@ -1,10 +1,10 @@
 import { Document, View } from '@react-pdf/renderer';
-import { ExportProps } from './types';
-import { Page } from './Page';
 import { formatAddress } from '../utils/formatAddress';
-import { StaticMap } from './StaticMap';
 import { CompLists } from './CompLists';
+import { Page } from './Page';
+import { StaticMap } from './StaticMap';
 import { Text } from './Text';
+import { ExportProps } from './types';
 
 export function Export({ subject, appraisalComps, rovComps, comments, apiKey }: ExportProps) {
     return (

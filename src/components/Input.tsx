@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { sharedInputSx } from '../consts';
+import { SHARED_INPUT_SX } from '../consts';
 
 type Props = React.HTMLProps<HTMLInputElement>;
 
@@ -8,7 +8,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props: Props, ref) => 
         <input
             {...props}
             ref={ref}
-            className={`${sharedInputSx} h-11 px-2 ${props.className ?? ''}`}
+            className={`${SHARED_INPUT_SX} h-11 px-2 ${props.className ?? ''}`}
         />
     );
 });
