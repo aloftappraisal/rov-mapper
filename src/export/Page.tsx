@@ -50,7 +50,12 @@ export function Page({ children, ...pageProps }: React.PropsWithChildren<PagePro
         <ReactPDFPage size="A4" style={styles.page} {...pageProps}>
             <View
                 fixed
-                style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
+                style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'baseline',
+                }}
             >
                 <Image
                     style={styles.logo}
