@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         display: 'flex',
-        flexDirection: 'column',
         padding: 30,
         gap: 24,
     },
@@ -23,7 +22,6 @@ const styles = StyleSheet.create({
     titleWrapper: {
         alignSelf: 'center',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         gap: 12,
     },
@@ -34,7 +32,6 @@ const styles = StyleSheet.create({
     children: {
         flexGrow: 1,
         display: 'flex',
-        flexDirection: 'column',
         gap: 20,
     },
     footerText: {

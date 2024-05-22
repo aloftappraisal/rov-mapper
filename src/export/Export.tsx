@@ -14,7 +14,6 @@ export function Export({ subject, appraisalComps, rovComps, comments, apiKey }: 
                     style={{
                         alignSelf: 'center',
                         display: 'flex',
-                        flexDirection: 'column',
                         alignItems: 'center',
                         gap: 16,
                     }}
