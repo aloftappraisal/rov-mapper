@@ -1,11 +1,5 @@
-import {
-    Image,
-    PageProps,
-    Page as ReactPDFPage,
-    StyleSheet,
-    Text,
-    View,
-} from '@react-pdf/renderer';
+import { Image, PageProps, Page as ReactPDFPage, StyleSheet, View } from '@react-pdf/renderer';
+import { Text } from './Text';
 
 const styles = StyleSheet.create({
     page: {
@@ -15,7 +9,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         padding: 30,
-        gap: 16,
+        gap: 24,
     },
     logo: {
         height: 20,
@@ -41,12 +35,11 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
-        gap: 16,
+        gap: 20,
     },
     footerText: {
         flexShrink: 0,
         alignSelf: 'center',
-        fontSize: 14,
     },
 });
 
@@ -67,13 +60,15 @@ export function Page({ children, ...pageProps }: React.PropsWithChildren<PagePro
                     src="https://aloft-public-assets.s3.us-west-2.amazonaws.com/Logo%3DTwo+Color%401x.png"
                 />
                 <View>
-                    <Text style={{ fontSize: 14 }}>{exportDate}</Text>
+                    <Text size="sm">{exportDate}</Text>
                 </View>
             </View>
             <View style={styles.children}>{children}</View>
             <Text
                 render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`}
                 style={styles.footerText}
+                size="xs"
+                color="textSecondary"
                 fixed
             />
         </ReactPDFPage>

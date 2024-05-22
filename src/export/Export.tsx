@@ -1,46 +1,12 @@
-import { Document, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { Document, View } from '@react-pdf/renderer';
 import { ExportProps } from './types';
 import { Page } from './Page';
 import { formatAddress } from '../utils/formatAddress';
 import { StaticMap } from './StaticMap';
+import { CompLists } from './CompLists';
+import { Text } from './Text';
 
-const styles = StyleSheet.create({
-    page: {
-        backgroundColor: '#FFF',
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: 30,
-        gap: 16,
-    },
-    logo: {
-        height: 20,
-        minHeight: 20,
-        maxHeight: 20,
-        width: 60,
-        minWidth: 60,
-        maxWidth: 60,
-        flexShrink: 0,
-    },
-    titleWrapper: {
-        alignSelf: 'center',
-    },
-    titleText: {
-        fontSize: 32,
-        fontWeight: 'bold',
-    },
-    children: {
-        flexGrow: 1,
-    },
-    footerText: {
-        flexShrink: 0,
-        alignSelf: 'center',
-        fontSize: 14,
-    },
-});
-
-export function Export({ subject, appraisalComps, rovComps, apiKey }: ExportProps) {
+export function Export({ subject, appraisalComps, rovComps, comments, apiKey }: ExportProps) {
     return (
         <Document>
             <Page>
@@ -53,7 +19,10 @@ export function Export({ subject, appraisalComps, rovComps, apiKey }: ExportProp
                         gap: 16,
                     }}
                 >
-                    <Text style={styles.titleText}>ROV Mapper</Text>
+                    <Text size="xl" style={{ fontWeight: 'bold' }}>
+                        ROV Mapper
+                    </Text>
+                    {/* TODO: Handle subject overflow */}
                     <Text>
                         Subject:
                         {formatAddress(subject.address)}
@@ -64,8 +33,31 @@ export function Export({ subject, appraisalComps, rovComps, apiKey }: ExportProp
                         subject={subject}
                         appraisalComps={appraisalComps}
                         rovComps={rovComps}
+                        width="535" // NOTE: Width and height need to be updated if the layout of the page changes
+                        height="627"
                         apiKey={apiKey}
                     />
+                </View>
+            </Page>
+            <Page>
+                <View style={{ display: 'flex', gap: 16 }}>
+                    <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
+                        <View style={{ flex: 1 }}>
+                            <Text size="lg">Appraisal Comps</Text>
+                        </View>
+                        <View style={{ flex: 1 }}>
+                            <Text size="lg">ROV Comps</Text>
+                        </View>
+                    </View>
+                    <CompLists
+                        subject={subject}
+                        appraisalComps={appraisalComps}
+                        rovComps={rovComps}
+                    />
+                </View>
+                <View break style={{ display: 'flex', gap: 16 }}>
+                    <Text size="lg">Comments</Text>
+                    <Text style={{ lineHeight: 1.75 }}>{comments}</Text>
                 </View>
             </Page>
         </Document>
