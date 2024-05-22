@@ -4,4 +4,4 @@ export const sharedInputSx =
 export const MAX_APPRAISAL_COMPS = 12;
 export const MAX_ROV_COMPS = 5;
 
-export const PDF_EXPORT_FILENAME = 'Aloft ROV Comps Export';
+export const PDF_FILENAME_PREFIX = 'Aloft ROV Mapper';

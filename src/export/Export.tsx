@@ -53,7 +53,7 @@ export function Export({ subject, appraisalComps, rovComps, apiKey }: ExportProp
                         gap: 16,
                     }}
                 >
-                    <Text style={styles.titleText}>ROV Comparables Tool</Text>
+                    <Text style={styles.titleText}>ROV Mapper</Text>
                     <Text>
                         Subject:
                         {formatAddress(subject.address)}

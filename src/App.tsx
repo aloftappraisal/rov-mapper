@@ -10,9 +10,7 @@ import { TextArea } from './components/TextArea';
 import { useComps } from './hooks/useComps';
 import { Logo } from './svg/Logo';
 import { Property } from './types';
-import { pdf } from '@react-pdf/renderer';
-import { Export } from './export/Export';
-import { PDF_EXPORT_FILENAME } from './consts';
+import { useExport } from './hooks/useExport';
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
@@ -36,40 +34,22 @@ function App() {
     const { appraisalComps, rovComps, addComp, removeComp } = useComps();
     const [comments, setComments] = useState<string>('');
 
-    const canExportPDF = !!subject && !!appraisalComps.length && !!rovComps.length;
-
-    const downloadPDf = async () => {
-        if (!subject) return;
-        const blob = await pdf(
-            <Export
-                subject={subject}
-                appraisalComps={appraisalComps}
-                rovComps={rovComps}
-                comments={comments}
-                apiKey={GOOGLE_MAPS_API_KEY}
-            />
-        ).toBlob();
-        const blobUrl = URL.createObjectURL(blob);
-
-        const link = document.createElement('a');
-        link.href = blobUrl;
-
-        link.setAttribute('download', PDF_EXPORT_FILENAME);
-        document.body.appendChild(link);
-        link.click();
-
-        document.body.removeChild(link);
-        URL.revokeObjectURL(blobUrl);
-    };
+    const { isReady, downloadPDF } = useExport({
+        subject,
+        appraisalComps,
+        rovComps,
+        comments,
+        apiKey: GOOGLE_MAPS_API_KEY,
+    });
 
     return (
         <div className="h-full flex flex-col lg:overflow-hidden">
             <header className="bg-surface-1 shrink-0 h-12 border-b px-2 flex items-center justify-between">
                 <div className="flex items-center justify-between gap-3">
                     <Logo />
-                    <h1 className="text-xl font-bold text-center">ROV Comparables Tool</h1>
+                    <h1 className="text-xl font-bold text-center">ROV Mapper</h1>
                 </div>
-                <Button size="sm" disabled={!canExportPDF} onClick={downloadPDf}>
+                <Button size="sm" disabled={!isReady} onClick={downloadPDF}>
                     Export to PDF
                 </Button>
             </header>
@@ -123,7 +103,7 @@ function App() {
                             onChange={(e) => setComments(e.target.value)}
                         />
                     </FormGroup>
-                    <Button disabled={!canExportPDF} onClick={downloadPDf}>
+                    <Button disabled={!isReady} onClick={downloadPDF}>
                         Export to PDF
                     </Button>
                 </div>
