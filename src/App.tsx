@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
+import SamHead from './assets/sam-head-right-500.png';
 import { Button } from './components/Button';
 import { CompList } from './components/CompList';
 import { CompListHeader } from './components/CompListHeader';
@@ -8,9 +9,10 @@ import { GoogleMapsAutocompleteInput } from './components/GoogleMapsAutocomplete
 import { Map } from './components/Map';
 import { TextArea } from './components/TextArea';
 import { useComps } from './hooks/useComps';
+import { useExport } from './hooks/useExport';
 import { Logo } from './svg/Logo';
 import { Property } from './types';
-import { useExport } from './hooks/useExport';
+import { Link } from './components/Link';
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
@@ -30,16 +32,13 @@ function App() {
 
     return (
         <div className="h-full flex flex-col lg:overflow-hidden">
-            <header className="bg-surface-1 shrink-0 h-12 border-b px-2 flex items-center justify-between">
+            <header className="bg-surface-1 shrink-0 h-12 border-b border-stroke-light px-2 flex items-center justify-between">
                 <div className="flex items-center justify-between gap-3">
                     <a href="https://www.aloftappraisal.com" target="_blank">
                         <Logo />
                     </a>
                     <h1 className="text-xl font-bold text-center">ROV Mapper</h1>
                 </div>
-                <Button size="sm" disabled={!isReady} onClick={downloadPDF}>
-                    Export to PDF
-                </Button>
             </header>
             <main className="flex-grow flex flex-col lg:flex-row gap-8 lg:overflow-hidden lg:max-w-[1500px] lg:w-full lg:mx-auto p-4">
                 <div className="flex flex-col gap-4 self-center lg:self-start lg:basis-[500px] shrink-0">
@@ -132,18 +131,31 @@ function App() {
                     </div>
                 </div>
             </main>
-            <footer className="shrink-0 w-full bg-surface-1 py-4 text-text-primary border-t">
-                <p className="text-sm text-center">
-                    Looking for data-backed adjustment support in your market? Check out our{' '}
-                    <a
-                        href="https://www.aloftappraisal.com/appraiser-toolkit"
-                        target="_blank"
-                        className="text-button-default"
-                    >
-                        Appraiser Toolkit
-                    </a>
-                    .
-                </p>
+            <footer className="shrink-0 w-full bg-surface-3 py-2 text-text-primary border-t flex items-center justify-center gap-4 border-stroke-default px-2">
+                <div className="flex px-3 py-2 gap-4 border border-stroke-light bg-surface-1 rounded items-center">
+                    <div className="w-[60px] h-[60px] bg-selected-2 rounded-full relative shrink-0">
+                        <img src={SamHead} className="w-[60px] h-[60px] absolute rounded-full" />
+                    </div>
+                    <p className="text-sm text-center max-w-60">
+                        Looking for data-backed adjustment support in your market? Check out our{' '}
+                        <a
+                            href="https://www.aloftappraisal.com/appraiser-toolkit"
+                            target="_blank"
+                            className="text-button-default"
+                        >
+                            Appraiser Toolkit
+                        </a>
+                        .
+                    </p>
+                    <div className="flex flex-col gap-1 shrink-0 items-center">
+                        <Link href="http://toolkit.aloftappraisal.com/?sign_up" target="_blank">
+                            Try Toolkit for Free!
+                        </Link>
+                        <p className="text-text-secondary text-xs">
+                            First 30 days free, then $29/month
+                        </p>
+                    </div>
+                </div>
             </footer>
         </div>
     );

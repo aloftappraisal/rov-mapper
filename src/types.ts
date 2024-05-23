@@ -21,5 +21,6 @@ export type Property = {
 
 export type CompType = 'appraisal' | 'rov';
 
+export type ButtonLikeSize = 'sm' | 'md';
 export type MapMarkerSize = 'sm' | 'md';
 export type MapMarkerEnv = 'web' | 'export';
