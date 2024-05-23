@@ -31,6 +31,7 @@ export function Map({ apiKey, subject, appraisalComps, rovComps }: Props) {
                     lat: 36.205143,
                     lng: -98.4736295,
                 }}
+                tilt={0}
             >
                 {subject && (
                     <AdvancedMarker position={subject.location}>
