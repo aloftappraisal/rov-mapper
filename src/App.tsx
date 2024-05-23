@@ -41,7 +41,7 @@ function App() {
                 </div>
             </header>
             <main className="flex-grow flex flex-col lg:flex-row gap-8 lg:overflow-hidden lg:max-w-[1500px] lg:w-full lg:mx-auto p-4">
-                <div className="flex flex-col gap-4 self-center lg:self-start lg:basis-[500px] shrink-0">
+                <div className="flex flex-col gap-4 lg:self-start lg:basis-[500px] shrink-0">
                     <FormGroup for="subject" label="Subject Property Address">
                         <GoogleMapsAutocompleteInput
                             id="subject"
@@ -57,7 +57,7 @@ function App() {
                             }}
                         />
                     </FormGroup>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 flex-wrap">
                         <FormGroup
                             for="appraisal-comp"
                             label="Add Appraisal Comp"
@@ -86,7 +86,7 @@ function App() {
                     <FormGroup for="comments" label="Reconsideration of Value Comments">
                         <TextArea
                             id="comments"
-                            className="h-96"
+                            className="h-36 lg:h-96"
                             placeholder="Enter comments"
                             value={comments}
                             onChange={(e) => setComments(e.target.value)}
@@ -97,7 +97,7 @@ function App() {
                     </Button>
                 </div>
                 <div className="flex flex-col lg:overflow-auto flex-grow">
-                    <div className="h-[500px] shrink-0">
+                    <div className="h-[250px] lg:h-[500px] shrink-0">
                         <Map
                             apiKey={GOOGLE_MAPS_API_KEY}
                             subject={subject}
@@ -132,11 +132,11 @@ function App() {
                 </div>
             </main>
             <footer className="shrink-0 w-full bg-surface-3 py-3 text-text-primary border-t flex items-center justify-center gap-4 border-stroke-default px-2">
-                <div className="flex px-3 py-2 gap-4 border border-stroke-light bg-surface-1 rounded items-center">
+                <div className="flex flex-wrap justify-center px-3 py-2 gap-4 border border-stroke-light bg-surface-1 rounded items-center">
                     <div className="w-[60px] h-[60px] bg-selected-2 rounded-full relative shrink-0">
                         <img src={SamHead} className="w-[60px] h-[60px] absolute rounded-full" />
                     </div>
-                    <p className="text-sm text-center max-w-60">
+                    <p className="text-sm text-center min-w-36 max-w-60">
                         Looking for data-backed adjustment support in your market? Check out our{' '}
                         <a
                             id="cta-link"

@@ -12,7 +12,7 @@ type Props = {
 export function CompList({ type, comps, subject, removeComp }: Props) {
     if (!comps.length) {
         const compTypeString = type === 'appraisal' ? 'appraisal' : 'ROV';
-        return <p>No {compTypeString} comps added</p>;
+        return <p className="mb-4 lg:mb-0">No {compTypeString} comps added</p>;
     }
 
     return (
