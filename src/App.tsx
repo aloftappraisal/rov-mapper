@@ -139,6 +139,7 @@ function App() {
                     <p className="text-sm text-center max-w-60">
                         Looking for data-backed adjustment support in your market? Check out our{' '}
                         <a
+                            id="toolkit-info-link"
                             href="https://www.aloftappraisal.com/appraiser-toolkit"
                             target="_blank"
                             className="text-button-default"
@@ -148,7 +149,11 @@ function App() {
                         .
                     </p>
                     <div className="flex flex-col gap-1 shrink-0 items-center">
-                        <Link href="http://toolkit.aloftappraisal.com/?sign_up" target="_blank">
+                        <Link
+                            id="toolkit-signup-link"
+                            href="http://toolkit.aloftappraisal.com/?sign_up"
+                            target="_blank"
+                        >
                             Try Toolkit for Free!
                         </Link>
                         <p className="text-text-secondary text-xs">

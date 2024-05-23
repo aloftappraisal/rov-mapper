@@ -13,6 +13,7 @@
     "@react-pdf/renderer": "^3.4.4",
     "@turf/turf": "^7.0.0-alpha.116",
     "@vis.gl/react-google-maps": "^0.11.2",
+    "logrocket": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "uuid": "^9.0.1"

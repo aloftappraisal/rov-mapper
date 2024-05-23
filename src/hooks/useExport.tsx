@@ -1,6 +1,7 @@
 import { pdf } from '@react-pdf/renderer';
-import { Export } from '../export/Export';
+import LogRocket from 'logrocket';
 import { PDF_FILENAME_PREFIX } from '../consts';
+import { Export } from '../export/Export';
 import { Property } from '../types';
 import { formatAddress } from '../utils/formatAddress';
 
@@ -49,6 +50,13 @@ export function useExport(props: Props) {
 
         document.body.removeChild(link);
         URL.revokeObjectURL(blobUrl);
+
+        LogRocket.track('ExportComplete', {
+            subject: JSON.stringify(subject),
+            appraisalComps: JSON.stringify(appraisalComps),
+            rovComps: JSON.stringify(rovComps),
+            comments: JSON.stringify(comments),
+        });
     };
 
     return {
