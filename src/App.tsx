@@ -40,7 +40,7 @@ function App() {
                     <h1 className="text-xl font-bold text-center">ROV Mapper</h1>
                 </div>
             </header>
-            <main className="flex-grow flex flex-col lg:flex-row gap-8 lg:overflow-hidden lg:max-w-[1500px] lg:w-full lg:mx-auto p-4">
+            <main className="flex-grow flex flex-col lg:flex-row gap-8 lg:overflow-auto lg:max-w-[1500px] lg:w-full lg:mx-auto p-4">
                 <div className="flex flex-col gap-4 lg:self-start lg:basis-[500px] shrink-0">
                     <FormGroup for="subject" label="Subject Property Address">
                         <GoogleMapsAutocompleteInput
@@ -96,7 +96,7 @@ function App() {
                         Export to PDF
                     </Button>
                 </div>
-                <div className="flex flex-col lg:overflow-auto flex-grow">
+                <div className="flex flex-col flex-grow">
                     <div className="h-[250px] lg:h-[500px] shrink-0">
                         <Map
                             apiKey={GOOGLE_MAPS_API_KEY}
@@ -105,8 +105,8 @@ function App() {
                             rovComps={rovComps}
                         />
                     </div>
-                    <div className="flex gap-2 lg:gap-8 mt-8 flex-grow lg:overflow-hidden">
-                        <div className="flex-1 flex flex-col gap-4 lg:overflow-auto">
+                    <div className="flex gap-2 lg:gap-8 mt-8 flex-grow lg:overflow-hidden min-h-36">
+                        <div className="flex-1 flex flex-col gap-4">
                             <CompListHeader type="appraisal" numComps={appraisalComps.length} />
                             <div className="lg:overflow-auto">
                                 <CompList
