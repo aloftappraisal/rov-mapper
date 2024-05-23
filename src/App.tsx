@@ -105,7 +105,7 @@ function App() {
                             rovComps={rovComps}
                         />
                     </div>
-                    <div className="flex gap-8 mt-8 flex-grow lg:overflow-hidden">
+                    <div className="flex gap-2 lg:gap-8 mt-8 flex-grow lg:overflow-hidden">
                         <div className="flex-1 flex flex-col gap-4 lg:overflow-auto">
                             <CompListHeader type="appraisal" numComps={appraisalComps.length} />
                             <div className="lg:overflow-auto">

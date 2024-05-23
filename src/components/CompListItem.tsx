@@ -21,8 +21,8 @@ export function CompListItem({ index, comp, type, onDelete }: Props) {
                     <CompMarkerSVG type={type} index={index} env="web" size="sm" />
                 </span>
                 <div className="flex-grow flex flex-col">
-                    <span>{formatAddress(comp.address)}</span>
-                    <span className="text-sm text-text-secondary">
+                    <span className="text-sm lg:text-base">{formatAddress(comp.address)}</span>
+                    <span className="text-xs lg:text-sm text-text-secondary">
                         {formatDistance(comp.distance)}
                     </span>
                 </div>
