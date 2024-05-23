@@ -131,7 +131,7 @@ function App() {
                     </div>
                 </div>
             </main>
-            <footer className="shrink-0 w-full bg-surface-3 py-2 text-text-primary border-t flex items-center justify-center gap-4 border-stroke-default px-2">
+            <footer className="shrink-0 w-full bg-surface-3 py-3 text-text-primary border-t flex items-center justify-center gap-4 border-stroke-default px-2">
                 <div className="flex px-3 py-2 gap-4 border border-stroke-light bg-surface-1 rounded items-center">
                     <div className="w-[60px] h-[60px] bg-selected-2 rounded-full relative shrink-0">
                         <img src={SamHead} className="w-[60px] h-[60px] absolute rounded-full" />
@@ -139,7 +139,7 @@ function App() {
                     <p className="text-sm text-center max-w-60">
                         Looking for data-backed adjustment support in your market? Check out our{' '}
                         <a
-                            id="toolkit-info-link"
+                            id="cta-link"
                             href="https://www.aloftappraisal.com/appraiser-toolkit"
                             target="_blank"
                             className="text-button-default"
@@ -150,15 +150,12 @@ function App() {
                     </p>
                     <div className="flex flex-col gap-1 shrink-0 items-center">
                         <Link
-                            id="toolkit-signup-link"
-                            href="http://toolkit.aloftappraisal.com/?sign_up"
+                            id="cta-button"
+                            href="https://www.aloftappraisal.com/appraiser-toolkit"
                             target="_blank"
                         >
-                            Try Toolkit for Free!
+                            Try Toolkit for free!
                         </Link>
-                        <p className="text-text-secondary text-xs">
-                            First 30 days free, then $29/month
-                        </p>
                     </div>
                 </div>
             </footer>
